@@ -1,7 +1,6 @@
 import type { ErrorRequestHandler } from 'express';
 import { z } from 'zod';
 
-import { UserAccessBlockedError } from '@modules/user/domain/user/errors/UserAccessBlockedError';
 import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
 import { Logger } from '@shared/infrastructure/logging/Logger';
 
@@ -42,15 +41,6 @@ export const userHttpErrorHandler: ErrorRequestHandler = (error, request, respon
 
   if (error instanceof UserUnauthorizedHttpError) {
     response.status(401).json({ error: error.message });
-    return;
-  }
-
-  if (error instanceof UserAccessBlockedError) {
-    response.status(403).json({
-      error: error.safeMessage,
-      reason: error.reason,
-      nextAction: error.nextAction,
-    });
     return;
   }
 

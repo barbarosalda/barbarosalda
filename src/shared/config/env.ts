@@ -20,7 +20,7 @@ const envSchema = z
     COGNITO_REGION: z.string().min(1).optional(),
     COGNITO_USER_POOL_ID: z.string().min(1).optional(),
     COGNITO_CLIENT_ID: z.string().min(1).optional(),
-    COGNITO_ISSUER: z.string().url().optional(),
+    COGNITO_TOKEN_USE: z.enum(['access', 'id']).default('access'),
     /**
      * Comma-separated list of allowed CORS origins (e.g. "https://app.example.com,https://admin.example.com").
      * Leave unset or empty to allow all origins (development only).

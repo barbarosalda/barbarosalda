@@ -8,6 +8,7 @@ import type { ApplicationContext } from '@src/app/Application';
 import { getRegisteredModuleRoutes, registeredModules } from '@src/shared/config/registeredModules';
 import { LOG_MESSAGES } from '@src/shared/domain/logging/entities/LogMessage';
 import { Logger } from '@src/shared/infrastructure/logging/Logger';
+import { requestContextMiddleware } from '@src/shared/presentation/http/context/requestContext';
 import { errorHandlerMiddleware } from '@src/shared/presentation/http/middleware/errorHandler';
 import { notFoundMiddleware } from '@src/shared/presentation/http/middleware/notFound';
 import { registerRoutes } from '@src/shared/presentation/http/routes';
@@ -32,6 +33,7 @@ export class HttpServer {
 
   private configureBaseMiddleware(app: Express): void {
     app.disable('x-powered-by');
+    app.use(requestContextMiddleware);
 
     const allowedOrigins = this.applicationContext.config.CORS_ORIGINS;
     app.use(

@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 import { VerifiedAuthIdentitySchema } from '../../domain/auth/schemas/VerifiedAuthIdentity.ts';
-import { UserSchema } from '../../domain/user/User.ts';
 import { UserPreferenceSchema } from '../../domain/preference/UserPreference.ts';
 
 export const ResolveAuthenticatedUserCommand = z.object({
@@ -12,7 +11,7 @@ export const ResolveAuthenticatedUserCommand = z.object({
 export type ResolveAuthenticatedUserCommand = z.infer<typeof ResolveAuthenticatedUserCommand>;
 
 export const ResolveAuthenticatedUserResult = z.object({
-  user: UserSchema,
+  identity: VerifiedAuthIdentitySchema,
   preferences: UserPreferenceSchema,
   created: z.boolean(),
 });

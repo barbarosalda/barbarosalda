@@ -14,11 +14,15 @@ export class DevelopmentAuthProviderAdapter implements IAuthProviderPort {
     }
 
     return VerifiedAuthIdentitySchema.parse({
-      provider: 'cognito',
-      providerUserId: devCognitoAccessTokenClaims.sub,
+      userId: devCognitoAccessTokenClaims.sub,
+      provider: 'dev',
+      tokenUse: devCognitoAccessTokenClaims.token_use,
+      username: devCognitoAccessTokenClaims.username,
       email: devCognitoAccessTokenClaims.email,
       emailVerified: devCognitoAccessTokenClaims.email_verified ?? false,
       name: devCognitoAccessTokenClaims.name,
+      groups: [],
+      scopes: devCognitoAccessTokenClaims.scope?.split(' ').filter(Boolean) ?? [],
     });
   }
 }

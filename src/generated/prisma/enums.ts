@@ -9,15 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const UserStatus = {
-  ACTIVE: 'ACTIVE',
-  DISABLED: 'DISABLED',
-  DELETED: 'DELETED'
-} as const
-
-export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
-
-
 export const EventCategory = {
   USER: 'USER',
   SYSTEM: 'SYSTEM',

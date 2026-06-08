@@ -6,13 +6,17 @@ import { devCognitoAccessTokenClaims } from '@modules/user/infrastructure/auth/d
 describe('DevelopmentAuthProviderAdapter', () => {
   const adapter = new DevelopmentAuthProviderAdapter();
 
-  it('maps the fake Cognito access token claims into a verified identity', async () => {
+  it('maps the fake Cognito access token claims into a verified dev identity', async () => {
     await expect(adapter.verifyToken('ignored-token')).resolves.toEqual({
-      provider: 'cognito',
-      providerUserId: devCognitoAccessTokenClaims.sub,
+      userId: devCognitoAccessTokenClaims.sub,
+      provider: 'dev',
+      tokenUse: 'access',
+      username: devCognitoAccessTokenClaims.username,
       email: devCognitoAccessTokenClaims.email,
       emailVerified: devCognitoAccessTokenClaims.email_verified,
       name: devCognitoAccessTokenClaims.name,
+      groups: [],
+      scopes: ['openid', 'email', 'profile'],
     });
   });
 });

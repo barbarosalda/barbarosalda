@@ -1,28 +1,37 @@
 import { Router } from 'express';
 
-import type { CreateUserWithPreferencesUseCase } from '../../application/use-cases/CreateUserWithPreferencesUseCase.ts';
 import type { ResolveAuthenticatedUserUseCase } from '../../application/use-cases/ResolveAuthenticatedUserUseCase.ts';
+import type { UpdateAuthenticatedUserPreferencesUseCase } from '../../application/use-cases/UpdateAuthenticatedUserPreferencesUseCase.ts';
 import type { IAuthProviderPort } from '../../application/ports/IAuthProviderPort.ts';
 import type { ModuleRoute } from '@shared/presentation/http/routes';
-import { createUserWithPreferencesHttpHandler } from './handlers/createUserWithPreferencesHttpHandler.ts';
+import { asyncHandler } from '@shared/presentation/http/utils/asyncHandler';
+import { localUserCreationRemovedHttpHandler } from './handlers/localUserCreationRemovedHttpHandler.ts';
 import { resolveAuthenticatedUserHttpHandler } from './handlers/resolveAuthenticatedUserHttpHandler.ts';
+import { updateAuthenticatedUserPreferencesHttpHandler } from './handlers/updateAuthenticatedUserPreferencesHttpHandler.ts';
 import { userHttpErrorHandler } from './errors/userHttpErrors.ts';
+import { requireAuthenticatedUser } from './middleware/requireAuthenticatedUser.ts';
 
 export function createUserModuleRoute(deps: {
-  createUserWithPreferencesUseCase: CreateUserWithPreferencesUseCase;
   resolveAuthenticatedUserUseCase: ResolveAuthenticatedUserUseCase;
+  updateAuthenticatedUserPreferencesUseCase: UpdateAuthenticatedUserPreferencesUseCase;
   authProvider: IAuthProviderPort;
 }): ModuleRoute {
   const router = Router();
+  const requireAuth = requireAuthenticatedUser({ authProvider: deps.authProvider });
 
   router.get(
     '/me',
-    resolveAuthenticatedUserHttpHandler({
-      authProvider: deps.authProvider,
-      resolveAuthenticatedUserUseCase: deps.resolveAuthenticatedUserUseCase,
-    }),
+    requireAuth,
+    asyncHandler(resolveAuthenticatedUserHttpHandler(deps)),
   );
-  router.post('/', createUserWithPreferencesHttpHandler(deps));
+
+  router.patch(
+    '/me/preferences',
+    requireAuth,
+    asyncHandler(updateAuthenticatedUserPreferencesHttpHandler(deps)),
+  );
+
+  router.post('/', localUserCreationRemovedHttpHandler());
   router.use(userHttpErrorHandler);
 
   return {

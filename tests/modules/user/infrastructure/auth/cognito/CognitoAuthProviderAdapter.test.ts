@@ -5,9 +5,9 @@ import { CognitoAuthProviderAdapter } from '@modules/user/infrastructure/auth/co
 
 describe('CognitoAuthProviderAdapter', () => {
   const adapter = new CognitoAuthProviderAdapter({
-    region: 'eu-west-1',
     userPoolId: 'eu-west-1_example',
     clientId: 'example-client-id',
+    tokenUse: 'access',
   });
 
   it('throws AuthTokenInvalidError for an empty token', async () => {
@@ -15,9 +15,8 @@ describe('CognitoAuthProviderAdapter', () => {
     await expect(adapter.verifyToken('   ')).rejects.toBeInstanceOf(AuthTokenInvalidError);
   });
 
-  it('throws not-implemented error for a non-empty token', async () => {
-    await expect(adapter.verifyToken('some-token')).rejects.toThrow(
-      'Cognito token verification is not implemented yet.',
-    );
+  it('throws AuthTokenInvalidError for an invalid non-empty token', async () => {
+    await expect(adapter.verifyToken('some-token')).rejects.toBeInstanceOf(AuthTokenInvalidError);
+    await expect(adapter.verifyToken('some-token')).rejects.toThrow('Invalid or expired authentication token.');
   });
 });

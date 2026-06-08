@@ -8,7 +8,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
 export type * from './models/UserPreference.ts'
 export type * from './models/Event.ts'
 export type * from './models/AuditLog.ts'

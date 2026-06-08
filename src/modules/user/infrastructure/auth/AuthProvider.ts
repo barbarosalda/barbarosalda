@@ -14,10 +14,9 @@ export class AuthProvider implements IAuthProviderPort {
     }
 
     this.provider = new CognitoAuthProviderAdapter({
-      region: config.COGNITO_REGION!,
       userPoolId: config.COGNITO_USER_POOL_ID!,
       clientId: config.COGNITO_CLIENT_ID!,
-      issuer: config.COGNITO_ISSUER,
+      tokenUse: config.COGNITO_TOKEN_USE,
     });
   }
 

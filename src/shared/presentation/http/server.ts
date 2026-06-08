@@ -4,6 +4,7 @@ import morgan from 'morgan';
 
 import { env } from '@shared/config/env';
 import { Logger } from '@shared/infrastructure/logging/Logger';
+import { requestContextMiddleware } from './context/requestContext.ts';
 import { errorHandlerMiddleware } from './middleware/errorHandler.ts';
 import { notFoundMiddleware } from './middleware/notFound.ts';
 import { listModuleRoutes, resetModuleRoutes } from './moduleRouteRegistry.ts';
@@ -36,6 +37,7 @@ export function createHttpApp(options: CreateHttpAppOptions = {}): Express {
     }),
   );
 
+  app.use(requestContextMiddleware);
   app.use(express.json({ limit: '1mb' }));
 
   if (env.LOG_LEVEL === 'debug' || env.LOG_LEVEL === 'trace') {

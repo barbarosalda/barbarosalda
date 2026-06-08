@@ -2,7 +2,7 @@ import type { Prisma, PrismaClient } from '@generated/prisma/client';
 
 import type { ITransactionPort } from '@shared/application/ports/database/ITransactionPort';
 import { createId } from '@shared/kernel/ids/createId';
-import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter';
+import type { IDatabasePort } from '@shared/application/ports/database/IDatabasePort';
 import { PrismaTransactionAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaTransactionAdapter';
 import type { IUserPreferenceRepository } from '@modules/user/application/ports/IUserPreferenceRepository';
 import type {
@@ -19,7 +19,7 @@ import {
 const USER_PREFERENCE_ID_PREFIX = 'upr';
 
 export class PrismaUserPreferenceRepositoryAdapter implements IUserPreferenceRepository {
-  constructor(private readonly database: PrismaDatabaseAdapter) {}
+  constructor(private readonly database: IDatabasePort) {}
 
   async findById(id: string, tx?: ITransactionPort): Promise<UserPreference | null> {
     const client = this.getClient(tx);
