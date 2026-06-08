@@ -1,0 +1,62 @@
+import type { ErrorRequestHandler } from 'express';
+import { z } from 'zod';
+
+import { UserAccessBlockedError } from '@modules/user/domain/user/errors/UserAccessBlockedError';
+import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
+import { Logger } from '@shared/infrastructure/logging/Logger';
+
+interface UserValidationIssue {
+  path: string;
+  message: string;
+  code: string;
+}
+
+function toValidationIssues(error: z.ZodError): UserValidationIssue[] {
+  return error.issues.map((issue) => ({
+    path: issue.path.join('.'),
+    message: issue.message,
+    code: issue.code,
+  }));
+}
+
+export class UserUnauthorizedHttpError extends Error {
+  constructor(message = 'Unauthorized') {
+    super(message);
+    this.name = 'UserUnauthorizedHttpError';
+  }
+}
+
+export const userHttpErrorHandler: ErrorRequestHandler = (error, request, response, next) => {
+  if (response.headersSent) {
+    next(error);
+    return;
+  }
+
+  if (error instanceof z.ZodError) {
+    response.status(400).json({
+      error: 'Validation error',
+      details: toValidationIssues(error),
+    });
+    return;
+  }
+
+  if (error instanceof UserUnauthorizedHttpError) {
+    response.status(401).json({ error: error.message });
+    return;
+  }
+
+  if (error instanceof UserAccessBlockedError) {
+    response.status(403).json({
+      error: error.safeMessage,
+      reason: error.reason,
+      nextAction: error.nextAction,
+    });
+    return;
+  }
+
+  Logger.error(LOG_MESSAGES.APPLICATION.HTTP_UNHANDLED_ERROR, {
+    error: error instanceof Error ? error.message : String(error),
+    route: `${request.method} ${request.baseUrl}${request.path}`,
+  });
+  response.status(500).json({ error: 'Internal server error' });
+};

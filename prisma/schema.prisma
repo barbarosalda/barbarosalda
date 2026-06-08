@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                     String         @id @db.Text
+  email                  String         @db.Text
+  external_auth_provider String         @db.Text
+  external_auth_user_id  String         @db.Text
+  name                   String?        @db.Text
+  status                 UserStatus     @default(ACTIVE)
+  deleted_at             DateTime?
+  created_at             DateTime       @default(now())
+  updated_at             DateTime       @updatedAt
+  user_preference        UserPreference?
+
+  @@unique([email])
+  @@unique([external_auth_provider, external_auth_user_id])
+  @@index([status])
+  @@map("users")
+}
+
+model UserPreference {
+  id            String   @id @db.Text
+  user_id       String   @unique @db.Text
+  timezone      String   @db.Text
+  locale        String?  @db.Text
+  metadata_json Json?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([timezone])
+  @@map("user_preferences")
+}
+
+model Event {
+  id               String        @id @db.Text
+  type             String        @db.Text
+  category         EventCategory
+  status           EventStatus   @default(PENDING)
+  target_type      String?       @db.Text
+  target_id        String?       @db.Text
+  provider_id      String?       @db.Text
+  correlation_id   String        @db.Text
+  causation_id     String?       @db.Text
+  ordering_key     String?       @db.Text
+  payload_json     Json
+  raw_payload_json Json?
+  metadata_json    Json?
+  attempt_count    Int           @default(0)
+  next_attempt_at  DateTime?
+  locked_at        DateTime?
+  locked_by        String?       @db.Text
+  processed_at     DateTime?
+  failed_at        DateTime?
+  error_message    String?       @db.Text
+  created_at       DateTime      @default(now())
+  updated_at       DateTime      @updatedAt
+
+  @@index([status, next_attempt_at])
+  @@index([correlation_id])
+  @@index([ordering_key])
+  @@index([target_type, target_id])
+  @@index([created_at])
+  @@map("events")
+}
+
+model AuditLog {
+  id             String          @id @db.Text
+  action         String          @db.Text
+  category       AuditCategory
+  severity       AuditSeverity   @default(INFO)
+  actor_type     ActorType
+  actor_id       String?         @db.Text
+  target_type    String          @db.Text
+  target_id      String          @db.Text
+  correlation_id String          @db.Text
+  causation_id   String?         @db.Text
+  request_id     String?         @db.Text
+  source         OperationSource
+  before_json    Json?
+  after_json     Json?
+  diff_json      Json?
+  metadata_json  Json?
+  created_at     DateTime        @default(now())
+
+  @@index([actor_type, actor_id])
+  @@index([target_type, target_id])
+  @@index([correlation_id])
+  @@index([action])
+  @@index([created_at])
+  @@map("audit_logs")
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+  DELETED
+}
+
+enum EventCategory {
+  USER
+  SYSTEM
+  RISK
+  PROTECTION
+  INTEGRATION
+  BILLING
+  NOTIFICATION
+  INFORMATION
+  INSIGHT
+}
+
+enum EventStatus {
+  PENDING
+  PROCESSING
+  PROCESSED
+  FAILED
+  CANCELLED
+}
+
+enum AuditCategory {
+  USER_ACTION
+  SYSTEM_ACTION
+  PROVIDER_ACTION
+  BILLING_ACTION
+}
+
+enum AuditSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum ActorType {
+  USER
+  ADMIN
+  SYSTEM
+  PROVIDER
+  BILLING_PROVIDER
+}
+
+enum OperationSource {
+  HTTP_API
+  WORKER
+  SCHEDULED_JOB
+  PROVIDER_WEBHOOK
+  SYSTEM_INTERNAL
+}
