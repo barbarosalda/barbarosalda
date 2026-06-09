@@ -1,20 +1,20 @@
 import type { Request, RequestHandler } from 'express';
 
-import type { IAuthProviderPort } from '../../../application/ports/IAuthProviderPort.ts';
+import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
 import { AuthTokenInvalidError } from '../../../domain/auth/errors/AuthTokenInvalidError.ts';
-import { UserUnauthorizedHttpError } from '../errors/userHttpErrors.ts';
+import { AuthUnauthorizedHttpError } from '@src/shared/presentation/http/errors/AuthHttpErrors';
 
 function extractBearerToken(request: Request): string {
   const authorization = request.header('authorization')?.trim();
   if (!authorization) {
-    throw new UserUnauthorizedHttpError('Missing Authorization header.');
+    throw new AuthUnauthorizedHttpError('Missing Authorization header.');
   }
 
   const [scheme, ...tokenParts] = authorization.split(/\s+/);
   const token = tokenParts.join(' ').trim();
 
   if (scheme !== 'Bearer' || token.length === 0) {
-    throw new UserUnauthorizedHttpError('Authorization header must use Bearer token.');
+    throw new AuthUnauthorizedHttpError('Authorization header must use Bearer token.');
   }
 
   return token;
@@ -34,7 +34,7 @@ export function requireAuthenticatedUser(deps: { authProvider: IAuthProviderPort
       next();
     } catch (error) {
       if (error instanceof AuthTokenInvalidError) {
-        next(new UserUnauthorizedHttpError(error.message));
+        next(new AuthUnauthorizedHttpError(error.message));
         return;
       }
 

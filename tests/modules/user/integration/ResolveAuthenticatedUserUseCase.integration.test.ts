@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase.ts';
-import { devCognitoAccessTokenClaims } from '@modules/user/infrastructure/auth/dev/dev-auth.identity.ts';
 import { PrismaUserPreferenceRepositoryAdapter } from '@modules/user/infrastructure/persistence/prisma/repository/PrismaUserPreferenceRepositoryAdapter.ts';
 import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter.ts';
 import { PrismaUnitOfWorkAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaUnitOfWorkAdapter.ts';
+import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity.ts';
 
 const databaseUrl = process.env['DATABASE_URL'];
 

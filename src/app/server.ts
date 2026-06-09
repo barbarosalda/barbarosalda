@@ -65,7 +65,7 @@ export class HttpServer {
           registeredModules.every((module) => module.isReady()),
       },
       moduleRoutes: getRegisteredModuleRoutes(),
-    });
+    }, this.applicationContext.authProvider);
   }
 
   private registerFallbackMiddleware(app: Express): void {

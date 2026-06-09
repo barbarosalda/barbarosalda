@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { VerifiedAuthIdentitySchema } from '../../domain/auth/schemas/VerifiedAuthIdentity.ts';
+import { VerifiedAuthIdentitySchema } from '@shared/domain/auth/schemas/VerifiedAuthIdentity';
 import { UserPreferenceSchema } from '../../domain/preference/UserPreference.ts';
 
 export const ResolveAuthenticatedUserCommand = z.object({

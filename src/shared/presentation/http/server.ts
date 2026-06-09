@@ -2,7 +2,9 @@ import cors from 'cors';
 import express, { type Express } from 'express';
 import morgan from 'morgan';
 
+import type { IAuthProviderPort } from '@shared/application/ports/auth/IAuthProviderPort';
 import { env } from '@shared/config/env';
+import { AuthProvider } from '@shared/infrastructure/auth/AuthProvider';
 import { Logger } from '@shared/infrastructure/logging/Logger';
 import { requestContextMiddleware } from './context/requestContext.ts';
 import { errorHandlerMiddleware } from './middleware/errorHandler.ts';
@@ -11,6 +13,7 @@ import { listModuleRoutes, resetModuleRoutes } from './moduleRouteRegistry.ts';
 import { type ModuleRoute, registerRoutes } from './routes.ts';
 
 interface CreateHttpAppOptions {
+  authProvider?: IAuthProviderPort;
   moduleRoutes?: ModuleRoute[];
   readinessChecks?: {
     isReady(): Promise<boolean>;
@@ -25,6 +28,8 @@ interface CreateHttpAppOptions {
  */
 export function createHttpApp(options: CreateHttpAppOptions = {}): Express {
   const app = express();
+  const authProvider = options.authProvider ?? new AuthProvider(env);
+
   app.disable('x-powered-by');
 
   const allowedOrigins = env.CORS_ORIGINS;
@@ -48,10 +53,14 @@ export function createHttpApp(options: CreateHttpAppOptions = {}): Express {
     );
   }
 
-  registerRoutes(app, {
-    readinessChecks: options.readinessChecks,
-    moduleRoutes: options.moduleRoutes ?? listModuleRoutes(),
-  });
+  registerRoutes(
+    app,
+    {
+      readinessChecks: options.readinessChecks,
+      moduleRoutes: options.moduleRoutes ?? listModuleRoutes(),
+    },
+    authProvider,
+  );
 
   app.use(notFoundMiddleware);
   app.use(errorHandlerMiddleware);

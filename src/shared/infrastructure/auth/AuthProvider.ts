@@ -1,5 +1,5 @@
 import type { ModuleSetupContext } from '@shared/application/ports/module/IModulePort';
-import type { IAuthProviderPort } from '@modules/user/application/ports/IAuthProviderPort';
+import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
 
 import { CognitoAuthProviderAdapter } from './cognito/CognitoAuthProviderAdapter.ts';
 import { DevelopmentAuthProviderAdapter } from './dev/DevelopmentAuthProviderAdapter.ts';

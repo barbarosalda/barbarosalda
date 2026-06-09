@@ -2,10 +2,12 @@ import type { IDatabasePort } from '@src/shared/application/ports/database/IData
 import type { IUnitOfWorkPort } from '@src/shared/application/ports/database/IUnitOfWorkPort';
 import type { IMessengerPort } from '@src/shared/application/ports/messenger/output/IMessengerPort';
 import type { ILoggerPort } from '@src/shared/application/ports/logger/ILoggerPort';
+import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
 import type { IModulePort, ModuleSetupContext } from '@src/shared/application/ports/module/IModulePort';
 import { PrismaDatabaseAdapter } from '@src/shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter';
 import { PrismaUnitOfWorkAdapter } from '@src/shared/infrastructure/database/prisma/adapters/PrismaUnitOfWorkAdapter';
 import { Messenger } from '@src/shared/infrastructure/messaging/Messenger';
+import { AuthProvider } from '@src/shared/infrastructure/auth/AuthProvider';
 import { LOG_MESSAGES } from '@src/shared/domain/logging/entities/LogMessage';
 import { Logger } from '@src/shared/infrastructure/logging/Logger';
 import { env } from '@src/shared/config/env';
@@ -33,6 +35,7 @@ export interface ApplicationContext extends ModuleSetupContext {
   messenger: IMessengerPort;
   logger: ILoggerPort;
   config: typeof env;
+  authProvider: IAuthProviderPort;
   startedModules: IModulePort[];
   httpServer?: HttpServer;
 }
@@ -57,6 +60,7 @@ export class Application {
     if (!Application._instance) {
       const database = new PrismaDatabaseAdapter();
       const unitOfWork = new PrismaUnitOfWorkAdapter(database);
+      const authProvider = new AuthProvider(env);
 
       Application._instance = new Application({
         database,
@@ -64,6 +68,7 @@ export class Application {
         messenger: Messenger,
         logger: Logger,
         config: env,
+        authProvider,
         startedModules: [],
       });
     }

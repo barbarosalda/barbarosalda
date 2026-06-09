@@ -2,12 +2,14 @@ import express from 'express';
 import request from 'supertest';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { IAuthProviderPort } from '@modules/user/application/ports/IAuthProviderPort';
 import type { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
 import type { UpdateAuthenticatedUserPreferencesUseCase } from '@modules/user/application/use-cases/UpdateAuthenticatedUserPreferencesUseCase';
-import { devCognitoAccessTokenClaims } from '@modules/user/infrastructure/auth/dev/dev-auth.identity';
-import { createUserModuleRoute } from '@modules/user/presentation/http/routes';
+import type { IAuthProviderPort } from '@shared/application/ports/auth/IAuthProviderPort';
+import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity';
 import { requestContextMiddleware } from '@shared/presentation/http/context/requestContext';
+import { errorHandlerMiddleware } from '@shared/presentation/http/middleware/errorHandler';
+import { registerRoutes } from '@shared/presentation/http/routes';
+import { createUserModuleRoutes } from '@modules/user/presentation/http/routes';
 
 function makeIdentity() {
   return {
@@ -23,7 +25,7 @@ function makeIdentity() {
   };
 }
 
-describe('createUserModuleRoute', () => {
+describe('createUserModuleRoutes', () => {
   it('returns 410 for removed POST /users local user creation', async () => {
     const resolveAuthenticatedUserUseCase = {
       execute: vi.fn(),
@@ -31,18 +33,20 @@ describe('createUserModuleRoute', () => {
     const updateAuthenticatedUserPreferencesUseCase = {
       execute: vi.fn(),
     } as unknown as UpdateAuthenticatedUserPreferencesUseCase;
+    const verifyToken = vi.fn();
     const authProvider = {
-      verifyToken: vi.fn(),
+      verifyToken,
     } as unknown as IAuthProviderPort;
-    const moduleRoute = createUserModuleRoute({
+    const moduleRoutes = createUserModuleRoutes({
       resolveAuthenticatedUserUseCase,
       updateAuthenticatedUserPreferencesUseCase,
-      authProvider,
     });
 
     const app = express();
+    app.use(requestContextMiddleware);
     app.use(express.json());
-    app.use(moduleRoute.path, moduleRoute.router);
+    registerRoutes(app, { moduleRoutes }, authProvider);
+    app.use(errorHandlerMiddleware);
 
     const response = await request(app).post('/users').send({ any: 'payload' });
 
@@ -53,7 +57,7 @@ describe('createUserModuleRoute', () => {
     });
     expect(resolveAuthenticatedUserUseCase.execute).not.toHaveBeenCalled();
     expect(updateAuthenticatedUserPreferencesUseCase.execute).not.toHaveBeenCalled();
-    expect(authProvider.verifyToken).not.toHaveBeenCalled();
+    expect(verifyToken).not.toHaveBeenCalled();
   });
 
   it('returns 401 on GET /users/me when Authorization header is missing', async () => {
@@ -63,25 +67,26 @@ describe('createUserModuleRoute', () => {
     const updateAuthenticatedUserPreferencesUseCase = {
       execute: vi.fn(),
     } as unknown as UpdateAuthenticatedUserPreferencesUseCase;
+    const verifyToken = vi.fn();
     const authProvider = {
-      verifyToken: vi.fn(),
+      verifyToken,
     } as unknown as IAuthProviderPort;
-    const moduleRoute = createUserModuleRoute({
+    const moduleRoutes = createUserModuleRoutes({
       resolveAuthenticatedUserUseCase,
       updateAuthenticatedUserPreferencesUseCase,
-      authProvider,
     });
 
     const app = express();
     app.use(requestContextMiddleware);
     app.use(express.json());
-    app.use(moduleRoute.path, moduleRoute.router);
+    registerRoutes(app, { moduleRoutes }, authProvider);
+    app.use(errorHandlerMiddleware);
 
     const response = await request(app).get('/users/me');
 
     expect(response.status).toBe(401);
     expect(response.body).toEqual({ error: 'Missing Authorization header.' });
-    expect(authProvider.verifyToken).not.toHaveBeenCalled();
+    expect(verifyToken).not.toHaveBeenCalled();
     expect(resolveAuthenticatedUserUseCase.execute).not.toHaveBeenCalled();
   });
 
@@ -106,19 +111,20 @@ describe('createUserModuleRoute', () => {
     const updateAuthenticatedUserPreferencesUseCase = {
       execute: vi.fn(),
     } as unknown as UpdateAuthenticatedUserPreferencesUseCase;
+    const verifyToken = vi.fn().mockResolvedValue(identity);
     const authProvider = {
-      verifyToken: vi.fn().mockResolvedValue(identity),
+      verifyToken,
     } as unknown as IAuthProviderPort;
-    const moduleRoute = createUserModuleRoute({
+    const moduleRoutes = createUserModuleRoutes({
       resolveAuthenticatedUserUseCase,
       updateAuthenticatedUserPreferencesUseCase,
-      authProvider,
     });
 
     const app = express();
     app.use(requestContextMiddleware);
     app.use(express.json());
-    app.use(moduleRoute.path, moduleRoute.router);
+    registerRoutes(app, { moduleRoutes }, authProvider);
+    app.use(errorHandlerMiddleware);
 
     const response = await request(app)
       .get('/users/me')
@@ -140,7 +146,7 @@ describe('createUserModuleRoute', () => {
         timezone: 'Europe/Lisbon',
       },
     });
-    expect(authProvider.verifyToken).toHaveBeenCalledWith('fake-token');
+    expect(verifyToken).toHaveBeenCalledWith('fake-token');
     expect(resolveAuthenticatedUserUseCase.execute).toHaveBeenCalledWith({
       identity,
       correlationId: 'corr-http-1',
@@ -167,19 +173,20 @@ describe('createUserModuleRoute', () => {
     const updateAuthenticatedUserPreferencesUseCase = {
       execute: vi.fn().mockResolvedValue(expectedResult),
     } as unknown as UpdateAuthenticatedUserPreferencesUseCase;
+    const verifyToken = vi.fn().mockResolvedValue(identity);
     const authProvider = {
-      verifyToken: vi.fn().mockResolvedValue(identity),
+      verifyToken,
     } as unknown as IAuthProviderPort;
-    const moduleRoute = createUserModuleRoute({
+    const moduleRoutes = createUserModuleRoutes({
       resolveAuthenticatedUserUseCase,
       updateAuthenticatedUserPreferencesUseCase,
-      authProvider,
     });
 
     const app = express();
     app.use(requestContextMiddleware);
     app.use(express.json());
-    app.use(moduleRoute.path, moduleRoute.router);
+    registerRoutes(app, { moduleRoutes }, authProvider);
+    app.use(errorHandlerMiddleware);
 
     const response = await request(app)
       .patch('/users/me/preferences')

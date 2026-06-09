@@ -2,7 +2,7 @@ import type { RequestHandler } from 'express';
 
 import { ResolveAuthenticatedUserCommand } from '../../../application/contracts/ResolveAuthenticatedUserContract.ts';
 import type { ResolveAuthenticatedUserUseCase } from '../../../application/use-cases/ResolveAuthenticatedUserUseCase.ts';
-import { getAuthenticatedUser } from '../middleware/getAuthenticatedUser.ts';
+import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 
 export function resolveAuthenticatedUserHttpHandler(deps: {
   resolveAuthenticatedUserUseCase: ResolveAuthenticatedUserUseCase;

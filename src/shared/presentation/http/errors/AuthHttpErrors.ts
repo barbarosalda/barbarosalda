@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
 import { Logger } from '@shared/infrastructure/logging/Logger';
+import { HttpError } from './HttpError.ts';
 
 interface UserValidationIssue {
   path: string;
@@ -18,14 +19,13 @@ function toValidationIssues(error: z.ZodError): UserValidationIssue[] {
   }));
 }
 
-export class UserUnauthorizedHttpError extends Error {
+export class AuthUnauthorizedHttpError extends HttpError {
   constructor(message = 'Unauthorized') {
-    super(message);
-    this.name = 'UserUnauthorizedHttpError';
+    super(401, message);
   }
 }
 
-export const userHttpErrorHandler: ErrorRequestHandler = (error, request, response, next) => {
+export const authHttpErrorHandler: ErrorRequestHandler = (error, request, response, next) => {
   if (response.headersSent) {
     next(error);
     return;
@@ -39,7 +39,7 @@ export const userHttpErrorHandler: ErrorRequestHandler = (error, request, respon
     return;
   }
 
-  if (error instanceof UserUnauthorizedHttpError) {
+  if (error instanceof AuthUnauthorizedHttpError) {
     response.status(401).json({ error: error.message });
     return;
   }

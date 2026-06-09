@@ -1,13 +1,18 @@
 import type { Express, Router } from 'express';
 import { healthHandler, readyHandler } from './controller.ts';
+import { requireAuthenticatedUser } from './middleware/requireAuthenticatedUser.ts';
+import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
 
 interface AppReadinessChecks {
   isReady(): Promise<boolean>;
 }
 
+export type ModuleRouteAccess = 'public' | 'protected';
+
 export interface ModuleRoute {
   path: string;
   router: Router;
+  access: ModuleRouteAccess;
 }
 
 interface RegisterRoutesOptions {
@@ -20,11 +25,25 @@ interface RegisterRoutesOptions {
  *
  * Registers global health/readiness endpoints and mounted module routes.
  */
-export function registerRoutes(app: Express, options: RegisterRoutesOptions = {}): void {
+export function registerRoutes(
+  app: Express,
+  options: RegisterRoutesOptions = {},
+  authProvider: IAuthProviderPort,
+): void {
   app.get('/health', healthHandler());
   app.get('/ready', readyHandler(options.readinessChecks));
 
   for (const route of options.moduleRoutes ?? []) {
+    if (route.access === 'protected') {
+      app.use(
+        route.path,
+        requireAuthenticatedUser({ authProvider }),
+        route.router,
+      );
+
+      continue;
+    }
+
     app.use(route.path, route.router);
   }
 }

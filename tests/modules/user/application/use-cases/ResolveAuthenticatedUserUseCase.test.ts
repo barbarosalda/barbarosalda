@@ -8,10 +8,10 @@ import type {
   UpdateUserPreferenceInput,
   UserPreference,
 } from '@modules/user/domain/preference/UserPreference.ts';
-import { devCognitoAccessTokenClaims } from '@modules/user/infrastructure/auth/dev/dev-auth.identity.ts';
 import type { IUnitOfWorkPort } from '@shared/application/ports/database/IUnitOfWorkPort.ts';
 import type { ITransactionPort } from '@shared/application/ports/database/ITransactionPort.ts';
 import type { OperationContext } from '@shared/domain/operation/schemas/OperationContext.ts';
+import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity.ts';
 import { ChangeRecorder } from '@shared/infrastructure/database/recorders/ChangeRecorder.ts';
 import { EventOutboxRecorder } from '@shared/infrastructure/database/recorders/EventOutboxRecorder.ts';
 

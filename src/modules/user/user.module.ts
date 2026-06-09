@@ -1,10 +1,9 @@
 import type { IModulePort, ModuleSetupContext } from '@shared/application/ports/module/IModulePort';
 import type { ModuleRoute } from '@shared/presentation/http/routes';
-import { AuthProvider } from './infrastructure/auth/AuthProvider.ts';
 import { PrismaUserPreferenceRepositoryAdapter } from './infrastructure/persistence/prisma/repository/PrismaUserPreferenceRepositoryAdapter.ts';
 import { ResolveAuthenticatedUserUseCase } from './application/use-cases/ResolveAuthenticatedUserUseCase.ts';
 import { UpdateAuthenticatedUserPreferencesUseCase } from './application/use-cases/UpdateAuthenticatedUserPreferencesUseCase.ts';
-import { createUserModuleRoute } from './presentation/http/routes.ts';
+import { createUserModuleRoutes } from './presentation/http/routes.ts';
 
 export class UserModule implements IModulePort {
   readonly name = 'user';
@@ -26,7 +25,6 @@ export class UserModule implements IModulePort {
     if (this.ready) return;
 
     const userPreferenceRepository = new PrismaUserPreferenceRepositoryAdapter(context.database);
-    const authProvider = new AuthProvider(context.config);
 
     this.resolveAuthenticatedUserUseCase = new ResolveAuthenticatedUserUseCase(
       context.unitOfWork,
@@ -38,13 +36,12 @@ export class UserModule implements IModulePort {
       userPreferenceRepository,
     );
 
-    const userRoute = createUserModuleRoute({
+    const userRoutes = createUserModuleRoutes({
       resolveAuthenticatedUserUseCase: this.resolveAuthenticatedUserUseCase,
       updateAuthenticatedUserPreferencesUseCase: this.updateAuthenticatedUserPreferencesUseCase,
-      authProvider,
     });
 
-    this.moduleRoutes = [userRoute];
+    this.moduleRoutes = userRoutes;
     this.ready = true;
   }
 

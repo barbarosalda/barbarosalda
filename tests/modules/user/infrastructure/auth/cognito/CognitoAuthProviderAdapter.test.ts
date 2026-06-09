@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { AuthTokenInvalidError } from '@modules/user/domain/auth/errors/AuthTokenInvalidError.ts';
-import { CognitoAuthProviderAdapter } from '@modules/user/infrastructure/auth/cognito/CognitoAuthProviderAdapter.ts';
+import { AuthTokenInvalidError } from '@shared/domain/auth/errors/AuthTokenInvalidError.ts';
+import { CognitoAuthProviderAdapter } from '@shared/infrastructure/auth/cognito/CognitoAuthProviderAdapter.ts';
 
 describe('CognitoAuthProviderAdapter', () => {
   const adapter = new CognitoAuthProviderAdapter({

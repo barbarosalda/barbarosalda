@@ -1,4 +1,4 @@
-import type { VerifiedAuthIdentity } from "../../domain/auth/schemas/VerifiedAuthIdentity.ts";
+import type { VerifiedAuthIdentity } from '@src/shared/domain/auth/schemas/VerifiedAuthIdentity';
 
 export interface IAuthProviderPort {
   verifyToken(token: string): Promise<VerifiedAuthIdentity>;

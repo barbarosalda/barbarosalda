@@ -1,8 +1,23 @@
 import type { NextFunction, Request, Response } from 'express';
+import { z } from 'zod';
 
 import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
 import { Logger } from '@shared/infrastructure/logging/Logger';
 import { HttpError } from '../errors/HttpError.ts';
+
+interface ValidationIssue {
+  path: string;
+  message: string;
+  code: string;
+}
+
+function toValidationIssues(error: z.ZodError): ValidationIssue[] {
+  return error.issues.map((issue) => ({
+    path: issue.path.join('.'),
+    message: issue.message,
+    code: issue.code,
+  }));
+}
 
 /**
  * Global Express error handler. Must be registered last, after all routes
@@ -20,6 +35,14 @@ export function errorHandlerMiddleware(
   // next must be declared even if unused — Express requires all 4 params
   _next: NextFunction,
 ): void {
+  if (err instanceof z.ZodError) {
+    res.status(400).json({
+      error: 'Validation error',
+      details: toValidationIssues(err),
+    });
+    return;
+  }
+
   if (err instanceof HttpError) {
     res.status(err.statusCode).json({ error: err.message });
     return;

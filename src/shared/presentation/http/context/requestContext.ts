@@ -2,12 +2,12 @@ import { randomUUID } from 'node:crypto';
 
 import type { NextFunction, Request, Response } from 'express';
 
-import type { AuthenticatedActor } from '@shared/domain/auth/AuthenticatedActor';
+import type { VerifiedAuthIdentity } from '@src/shared/domain/auth/schemas/VerifiedAuthIdentity';
 
 export interface RequestContext {
   requestId: string;
   correlationId: string;
-  actor?: AuthenticatedActor;
+  actor?: VerifiedAuthIdentity;
 }
 
 function getHeaderValue(request: Request, headerName: string): string | undefined {
