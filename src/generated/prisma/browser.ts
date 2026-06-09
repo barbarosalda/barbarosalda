@@ -32,3 +32,58 @@ export type Event = Prisma.EventModel
  * 
  */
 export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model PropFirm
+ * 
+ */
+export type PropFirm = Prisma.PropFirmModel
+/**
+ * Model PropFirmProgram
+ * 
+ */
+export type PropFirmProgram = Prisma.PropFirmProgramModel
+/**
+ * Model PropFirmProgramStage
+ * 
+ */
+export type PropFirmProgramStage = Prisma.PropFirmProgramStageModel
+/**
+ * Model RuleGroup
+ * 
+ */
+export type RuleGroup = Prisma.RuleGroupModel
+/**
+ * Model RuleSet
+ * 
+ */
+export type RuleSet = Prisma.RuleSetModel
+/**
+ * Model Rule
+ * 
+ */
+export type Rule = Prisma.RuleModel
+/**
+ * Model TradingAccount
+ * 
+ */
+export type TradingAccount = Prisma.TradingAccountModel
+/**
+ * Model TradingAccountSnapshot
+ * 
+ */
+export type TradingAccountSnapshot = Prisma.TradingAccountSnapshotModel
+/**
+ * Model RuleState
+ * 
+ */
+export type RuleState = Prisma.RuleStateModel
+/**
+ * Model IntegrationProvider
+ * 
+ */
+export type IntegrationProvider = Prisma.IntegrationProviderModel
+/**
+ * Model IntegrationConnection
+ * 
+ */
+export type IntegrationConnection = Prisma.IntegrationConnectionModel

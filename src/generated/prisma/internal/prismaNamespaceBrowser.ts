@@ -53,7 +53,18 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   UserPreference: 'UserPreference',
   Event: 'Event',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  PropFirm: 'PropFirm',
+  PropFirmProgram: 'PropFirmProgram',
+  PropFirmProgramStage: 'PropFirmProgramStage',
+  RuleGroup: 'RuleGroup',
+  RuleSet: 'RuleSet',
+  Rule: 'Rule',
+  TradingAccount: 'TradingAccount',
+  TradingAccountSnapshot: 'TradingAccountSnapshot',
+  RuleState: 'RuleState',
+  IntegrationProvider: 'IntegrationProvider',
+  IntegrationConnection: 'IntegrationConnection'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -134,6 +145,198 @@ export const AuditLogScalarFieldEnum = {
 } as const
 
 export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const PropFirmScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  website_url: 'website_url',
+  status: 'status',
+  firm_type: 'firm_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PropFirmScalarFieldEnum = (typeof PropFirmScalarFieldEnum)[keyof typeof PropFirmScalarFieldEnum]
+
+
+export const PropFirmProgramScalarFieldEnum = {
+  id: 'id',
+  prop_firm_id: 'prop_firm_id',
+  name: 'name',
+  slug: 'slug',
+  initial_nominal_value: 'initial_nominal_value',
+  market_type: 'market_type',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PropFirmProgramScalarFieldEnum = (typeof PropFirmProgramScalarFieldEnum)[keyof typeof PropFirmProgramScalarFieldEnum]
+
+
+export const PropFirmProgramStageScalarFieldEnum = {
+  id: 'id',
+  program_id: 'program_id',
+  name: 'name',
+  sequence_order: 'sequence_order',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PropFirmProgramStageScalarFieldEnum = (typeof PropFirmProgramStageScalarFieldEnum)[keyof typeof PropFirmProgramStageScalarFieldEnum]
+
+
+export const RuleGroupScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  description: 'description',
+  group_type: 'group_type',
+  status: 'status',
+  metadata_json: 'metadata_json',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type RuleGroupScalarFieldEnum = (typeof RuleGroupScalarFieldEnum)[keyof typeof RuleGroupScalarFieldEnum]
+
+
+export const RuleSetScalarFieldEnum = {
+  id: 'id',
+  rule_group_id: 'rule_group_id',
+  prop_firm_id: 'prop_firm_id',
+  prop_firm_program_id: 'prop_firm_program_id',
+  prop_firm_program_stage_id: 'prop_firm_program_stage_id',
+  name: 'name',
+  description: 'description',
+  set_type: 'set_type',
+  priority: 'priority',
+  version: 'version',
+  source_url: 'source_url',
+  status: 'status',
+  metadata_json: 'metadata_json',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type RuleSetScalarFieldEnum = (typeof RuleSetScalarFieldEnum)[keyof typeof RuleSetScalarFieldEnum]
+
+
+export const RuleScalarFieldEnum = {
+  id: 'id',
+  rule_set_id: 'rule_set_id',
+  rule_type: 'rule_type',
+  name: 'name',
+  description: 'description',
+  severity: 'severity',
+  priority: 'priority',
+  params_json: 'params_json',
+  source_url: 'source_url',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type RuleScalarFieldEnum = (typeof RuleScalarFieldEnum)[keyof typeof RuleScalarFieldEnum]
+
+
+export const TradingAccountScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  license_id: 'license_id',
+  provider_account_id: 'provider_account_id',
+  account_number: 'account_number',
+  account_label: 'account_label',
+  account_currency: 'account_currency',
+  prop_firm_id: 'prop_firm_id',
+  prop_firm_program_id: 'prop_firm_program_id',
+  prop_firm_program_stage_id: 'prop_firm_program_stage_id',
+  rule_group_id: 'rule_group_id',
+  status: 'status',
+  metadata_json: 'metadata_json',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type TradingAccountScalarFieldEnum = (typeof TradingAccountScalarFieldEnum)[keyof typeof TradingAccountScalarFieldEnum]
+
+
+export const TradingAccountSnapshotScalarFieldEnum = {
+  id: 'id',
+  trading_account_id: 'trading_account_id',
+  balance: 'balance',
+  equity: 'equity',
+  margin_used: 'margin_used',
+  free_margin: 'free_margin',
+  unrealized_pnl: 'unrealized_pnl',
+  realized_pnl: 'realized_pnl',
+  snapshot_type: 'snapshot_type',
+  provider_timestamp: 'provider_timestamp',
+  recorded_at: 'recorded_at',
+  created_at: 'created_at'
+} as const
+
+export type TradingAccountSnapshotScalarFieldEnum = (typeof TradingAccountSnapshotScalarFieldEnum)[keyof typeof TradingAccountSnapshotScalarFieldEnum]
+
+
+export const RuleStateScalarFieldEnum = {
+  id: 'id',
+  trading_account_id: 'trading_account_id',
+  rule_id: 'rule_id',
+  status: 'status',
+  state_json: 'state_json',
+  window_start_at: 'window_start_at',
+  window_end_at: 'window_end_at',
+  last_evaluated_event_id: 'last_evaluated_event_id',
+  last_evaluated_at: 'last_evaluated_at',
+  next_evaluation_at: 'next_evaluation_at',
+  status_changed_at: 'status_changed_at',
+  metadata_json: 'metadata_json',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type RuleStateScalarFieldEnum = (typeof RuleStateScalarFieldEnum)[keyof typeof RuleStateScalarFieldEnum]
+
+
+export const IntegrationProviderScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  description: 'description',
+  provider_type: 'provider_type',
+  auth_type: 'auth_type',
+  connection_mode: 'connection_mode',
+  adapter_key: 'adapter_key',
+  website_url: 'website_url',
+  logo_url: 'logo_url',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type IntegrationProviderScalarFieldEnum = (typeof IntegrationProviderScalarFieldEnum)[keyof typeof IntegrationProviderScalarFieldEnum]
+
+
+export const IntegrationConnectionScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  provider_id: 'provider_id',
+  provider_external_user_id: 'provider_external_user_id',
+  status: 'status',
+  credentials_ref: 'credentials_ref',
+  connected_at: 'connected_at',
+  disconnected_at: 'disconnected_at',
+  last_sync_at: 'last_sync_at',
+  last_error: 'last_error',
+  metadata_json: 'metadata_json',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type IntegrationConnectionScalarFieldEnum = (typeof IntegrationConnectionScalarFieldEnum)[keyof typeof IntegrationConnectionScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -79,6 +79,268 @@ model AuditLog {
   @@map("audit_logs")
 }
 
+model PropFirm {
+  id          String        @id @db.Text
+  name        String        @db.Text
+  slug        String        @unique @db.Text
+  website_url String?       @db.Text
+  status      RecordStatus?
+  firm_type   PropFirmType?
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+
+  programs         PropFirmProgram[]
+  rule_sets        RuleSet[]
+  trading_accounts TradingAccount[]
+
+  @@index([status])
+  @@index([firm_type])
+  @@map("prop_firms")
+}
+
+model PropFirmProgram {
+  id                    String             @id @db.Text
+  prop_firm_id          String             @db.Text
+  name                  String             @db.Text
+  slug                  String?            @db.Text
+  initial_nominal_value Float?
+  market_type           TradingMarketType?
+  status                RecordStatus?
+  created_at            DateTime           @default(now())
+  updated_at            DateTime           @updatedAt
+
+  prop_firm        PropFirm               @relation(fields: [prop_firm_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  stages           PropFirmProgramStage[]
+  rule_sets        RuleSet[]
+  trading_accounts TradingAccount[]
+
+  @@index([prop_firm_id])
+  @@index([market_type])
+  @@index([status])
+  @@map("prop_firm_programs")
+}
+
+model PropFirmProgramStage {
+  id             String   @id @db.Text
+  program_id     String   @db.Text
+  name           String   @db.Text
+  sequence_order Int
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  program          PropFirmProgram  @relation(fields: [program_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rule_sets        RuleSet[]
+  trading_accounts TradingAccount[]
+
+  @@unique([program_id, sequence_order])
+  @@index([program_id])
+  @@map("prop_firm_program_stages")
+}
+
+model RuleGroup {
+  id            String        @id @db.Text
+  user_id       String?       @db.Text
+  name          String        @db.Text
+  description   String?       @db.Text
+  group_type    RuleGroupType @default(ACCOUNT)
+  status        RecordStatus  @default(ACTIVE)
+  metadata_json Json?
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+
+  rule_sets        RuleSet[]
+  trading_accounts TradingAccount[]
+
+  @@index([user_id])
+  @@index([group_type])
+  @@index([status])
+  @@map("rule_groups")
+}
+
+model RuleSet {
+  id                         String       @id @db.Text
+  rule_group_id              String       @db.Text
+  prop_firm_id               String?      @db.Text
+  prop_firm_program_id       String?      @db.Text
+  prop_firm_program_stage_id String?      @db.Text
+  name                       String       @db.Text
+  description                String?      @db.Text
+  set_type                   RuleSetType  @default(CUSTOM)
+  priority                   Int          @default(0)
+  version                    Int          @default(1)
+  source_url                 String?      @db.Text
+  status                     RecordStatus @default(ACTIVE)
+  metadata_json              Json?
+  created_at                 DateTime     @default(now())
+  updated_at                 DateTime     @updatedAt
+
+  rule_group              RuleGroup             @relation(fields: [rule_group_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  prop_firm               PropFirm?             @relation(fields: [prop_firm_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  prop_firm_program       PropFirmProgram?      @relation(fields: [prop_firm_program_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  prop_firm_program_stage PropFirmProgramStage? @relation(fields: [prop_firm_program_stage_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  rules                   Rule[]
+
+  @@index([rule_group_id])
+  @@index([prop_firm_id])
+  @@index([prop_firm_program_id])
+  @@index([prop_firm_program_stage_id])
+  @@index([set_type])
+  @@index([status])
+  @@map("rule_sets")
+}
+
+model Rule {
+  id          String       @id @db.Text
+  rule_set_id String       @db.Text
+  rule_type   RuleType
+  name        String       @db.Text
+  description String?      @db.Text
+  severity    RuleSeverity @default(MEDIUM)
+  priority    Int          @default(0)
+  params_json Json
+  source_url  String?      @db.Text
+  status      RecordStatus @default(ACTIVE)
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+
+  rule_set    RuleSet     @relation(fields: [rule_set_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rule_states RuleState[]
+
+  @@index([rule_set_id])
+  @@index([rule_type])
+  @@index([severity])
+  @@index([status])
+  @@map("rules")
+}
+
+model TradingAccount {
+  id                         String               @id @db.Text
+  user_id                    String               @db.Text
+  license_id                 String?              @db.Text
+  provider_account_id        String?              @db.Text
+  account_number             String?              @db.Text
+  account_label              String?              @db.Text
+  account_currency           String?              @db.Text
+  prop_firm_id               String?              @db.Text
+  prop_firm_program_id       String?              @db.Text
+  prop_firm_program_stage_id String?              @db.Text
+  rule_group_id              String?              @db.Text
+  status                     TradingAccountStatus @default(ACTIVE)
+  metadata_json              Json?
+  created_at                 DateTime             @default(now())
+  updated_at                 DateTime             @updatedAt
+
+  prop_firm               PropFirm?                @relation(fields: [prop_firm_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  prop_firm_program       PropFirmProgram?         @relation(fields: [prop_firm_program_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  prop_firm_program_stage PropFirmProgramStage?    @relation(fields: [prop_firm_program_stage_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  rule_group              RuleGroup?               @relation(fields: [rule_group_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  snapshots               TradingAccountSnapshot[]
+  rule_states             RuleState[]
+
+  @@index([user_id])
+  @@index([license_id])
+  @@index([provider_account_id])
+  @@index([prop_firm_id])
+  @@index([prop_firm_program_id])
+  @@index([prop_firm_program_stage_id])
+  @@index([rule_group_id])
+  @@index([status])
+  @@map("trading_accounts")
+}
+
+model TradingAccountSnapshot {
+  id                 String       @id @db.Text
+  trading_account_id String       @db.Text
+  balance            Float?
+  equity             Float?
+  margin_used        Float?
+  free_margin        Float?
+  unrealized_pnl     Float?
+  realized_pnl       Float?
+  snapshot_type      SnapshotType @default(EVENT)
+  provider_timestamp DateTime?
+  recorded_at        DateTime     @default(now())
+  created_at         DateTime     @default(now())
+
+  trading_account TradingAccount @relation(fields: [trading_account_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([trading_account_id, recorded_at])
+  @@index([snapshot_type])
+  @@map("trading_account_snapshots")
+}
+
+model RuleState {
+  id                      String          @id @db.Text
+  trading_account_id      String          @db.Text
+  rule_id                 String          @db.Text
+  status                  RuleStateStatus @default(NOT_EVALUATED)
+  state_json              Json?
+  window_start_at         DateTime?
+  window_end_at           DateTime?
+  last_evaluated_event_id String?         @db.Text
+  last_evaluated_at       DateTime?
+  next_evaluation_at      DateTime?
+  status_changed_at       DateTime?
+  metadata_json           Json?
+  created_at              DateTime        @default(now())
+  updated_at              DateTime        @updatedAt
+
+  trading_account TradingAccount @relation(fields: [trading_account_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rule            Rule           @relation(fields: [rule_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([trading_account_id, rule_id])
+  @@index([rule_id])
+  @@index([status])
+  @@index([next_evaluation_at])
+  @@map("rule_states")
+}
+
+model IntegrationProvider {
+  id              String                    @id @db.Text
+  code            String                    @unique @db.Text
+  name            String                    @db.Text
+  description     String?                   @db.Text
+  provider_type   IntegrationProviderType   @default(OTHER)
+  auth_type       IntegrationAuthType
+  connection_mode IntegrationConnectionMode
+  adapter_key     String                    @db.Text
+  website_url     String?                   @db.Text
+  logo_url        String?                   @db.Text
+  status          RecordStatus              @default(ACTIVE)
+  created_at      DateTime                  @default(now())
+  updated_at      DateTime                  @updatedAt
+
+  connections IntegrationConnection[]
+
+  @@index([provider_type])
+  @@index([status])
+  @@index([adapter_key])
+  @@map("integration_providers")
+}
+
+model IntegrationConnection {
+  id                        String                      @id @db.Text
+  user_id                   String                      @db.Text
+  provider_id               String                      @db.Text
+  provider_external_user_id String?                     @db.Text
+  status                    IntegrationConnectionStatus @default(PENDING)
+  credentials_ref           String?                     @db.Text
+  connected_at              DateTime?
+  disconnected_at           DateTime?
+  last_sync_at              DateTime?
+  last_error                String?                     @db.Text
+  metadata_json             Json?
+  created_at                DateTime                    @default(now())
+  updated_at                DateTime                    @updatedAt
+
+  provider IntegrationProvider @relation(fields: [provider_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([user_id])
+  @@index([provider_id])
+  @@index([status])
+  @@map("integration_connections")
+}
+
 enum EventCategory {
   USER
   SYSTEM
@@ -126,4 +388,184 @@ enum OperationSource {
   SCHEDULED_JOB
   PROVIDER_WEBHOOK
   SYSTEM_INTERNAL
+}
+
+enum RecordStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum PropFirmType {
+  CFD
+  FUTURES
+  MULTI_ASSET
+  UNKNOWN
+}
+
+enum TradingMarketType {
+  FOREX_CFD
+  FUTURES
+  CRYPTO
+  MULTI_ASSET
+  UNKNOWN
+}
+
+enum TradingAccountStatus {
+  ACTIVE
+  DISCONNECTED
+  LOCKED
+  BREACHED
+  ARCHIVED
+}
+
+enum SnapshotType {
+  EVENT
+  MANUAL
+}
+
+enum RuleGroupType {
+  SYSTEM
+  PROP_FIRM
+  ACCOUNT
+  USER_CUSTOM
+}
+
+enum RuleSetType {
+  PROP_FIRM_OFFICIAL
+  TRADERLOCK_SYSTEM
+  INFORMATION_RESTRICTION
+  USER_CUSTOM
+  CUSTOM
+}
+
+enum RuleType {
+  PROFIT_TARGET
+  MIN_TRADING_DAYS
+  MIN_PROFITABLE_DAYS
+  MIN_TRADES
+  MAX_TRADES
+  TIME_LIMIT
+  ACCESS_PERIOD
+  MAX_DAILY_LOSS
+  MAX_TOTAL_LOSS
+  STATIC_DRAWDOWN
+  TRAILING_DRAWDOWN
+  EOD_DRAWDOWN
+  INTRADAY_DRAWDOWN
+  MAX_OPEN_LOSS
+  MAX_OPEN_RISK
+  DAILY_PAUSE_LIMIT
+  MAX_POSITION_SIZE
+  MAX_CONTRACTS
+  MAX_LOTS
+  MAX_OPEN_POSITIONS
+  MAX_SYMBOL_EXPOSURE
+  MAX_TOTAL_EXPOSURE
+  RISK_PER_TRADE_LIMIT
+  LEVERAGE_LIMIT
+  MARGIN_USAGE_LIMIT
+  SCALING_PLAN
+  TRADING_HOURS_RESTRICTION
+  MARKET_CLOSE_RESTRICTION
+  OVERNIGHT_RESTRICTION
+  WEEKEND_RESTRICTION
+  HOLIDAY_RESTRICTION
+  SESSION_RESTRICTION
+  MAX_HOLD_TIME
+  MIN_HOLD_TIME
+  NEWS_RESTRICTION
+  NEWS_PROFIT_ADJUSTMENT
+  NEWS_PENDING_ORDER_RESTRICTION
+  HIGH_IMPACT_EVENT_RESTRICTION
+  SPEECH_EVENT_RESTRICTION
+  EARNINGS_RESTRICTION
+  CONSISTENCY_RULE
+  BEST_DAY_LIMIT
+  BEST_TRADE_LIMIT
+  LOT_SIZE_CONSISTENCY
+  TRADE_FREQUENCY_CONSISTENCY
+  GAMBLING_BEHAVIOR_RESTRICTION
+  MARTINGALE_RESTRICTION
+  ONE_SIDED_BET_RESTRICTION
+  COPY_TRADING_RESTRICTION
+  GROUP_TRADING_RESTRICTION
+  HFT_RESTRICTION
+  LATENCY_ARBITRAGE_RESTRICTION
+  HEDGING_RESTRICTION
+  REVERSE_TRADING_RESTRICTION
+  PERMITTED_MARKETS
+  RESTRICTED_MARKETS
+  SYMBOL_RESTRICTION
+  ASSET_CLASS_RESTRICTION
+  PLATFORM_RESTRICTION
+  PAYOUT_ELIGIBILITY
+  PAYOUT_MIN_PROFIT
+  PAYOUT_MIN_TRADING_DAYS
+  PAYOUT_CONSISTENCY_RULE
+  PAYOUT_CAP
+  PAYOUT_FREQUENCY_LIMIT
+  PAYOUT_SPLIT_RULE
+  PAYOUT_CYCLE_RULE
+  PAYOUT_RESET_RULE
+  INACTIVITY_RULE
+  ACCOUNT_EXPIRATION_RULE
+  MAX_ACCOUNTS_LIMIT
+  MAX_CAPITAL_ALLOCATION
+  KYC_REQUIREMENT
+  SCALING_ELIGIBILITY
+  RESET_ELIGIBILITY
+  PROHIBITED_STRATEGY
+  TERMS_VIOLATION
+  MANUAL_REVIEW_TRIGGER
+  CUSTOM
+}
+
+enum RuleSeverity {
+  INFO
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum RuleStateStatus {
+  NOT_EVALUATED
+  COMPLIANT
+  WARNING
+  BREACHED
+  DISABLED
+}
+
+enum IntegrationProviderType {
+  TRADING_PLATFORM
+  MARKET_DATA_PROVIDER
+  NEWS_PROVIDER
+  NOTIFICATION_PROVIDER
+  OTHER
+}
+
+enum IntegrationAuthType {
+  OAUTH
+  API_KEY
+  USERNAME_PASSWORD
+  NONE
+  SYSTEM_MANAGED
+}
+
+enum IntegrationConnectionMode {
+  REST
+  WEBSOCKET
+  HYBRID
+  MANUAL
+  INTERNAL
+}
+
+enum IntegrationConnectionStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  REVOKED
+  ERROR
+  DISCONNECTED
 }
