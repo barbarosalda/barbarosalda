@@ -1,4 +1,4 @@
-import type { EventIntent } from '@shared/domain/event/schemas/EventIntent';
+import type { EventIntent } from '@src/shared/domain/Event/schemas/EventIntent';
 
 export interface IEventOutboxPort {
   enqueue(event: EventIntent): void;

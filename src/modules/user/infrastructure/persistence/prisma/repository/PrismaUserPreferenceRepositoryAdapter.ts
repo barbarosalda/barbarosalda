@@ -14,7 +14,7 @@ import {
   toDomainUserPreference,
   toPrismaUserPreferenceCreateData,
   toPrismaUserPreferenceUpdateData,
-} from '../mappers/UserPreferenceMapper.ts';
+} from '@modules/user/infrastructure/persistence/prisma/mappers/UserPreferenceMapper';
 
 const USER_PREFERENCE_ID_PREFIX = 'upr';
 

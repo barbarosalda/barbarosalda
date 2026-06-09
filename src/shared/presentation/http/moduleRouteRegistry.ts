@@ -1,4 +1,4 @@
-import type { ModuleRoute } from './routes.ts';
+import type { ModuleRoute } from '@shared/presentation/http/routes';
 
 const moduleRoutes: ModuleRoute[] = [];
 

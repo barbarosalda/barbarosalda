@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { DevelopmentAuthProviderAdapter } from '@shared/infrastructure/auth/dev/DevelopmentAuthProviderAdapter.ts';
-import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity.ts';
+import { DevelopmentAuthProviderAdapter } from '@shared/infrastructure/auth/dev/DevelopmentAuthProviderAdapter';
+import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity';
 
 describe('DevelopmentAuthProviderAdapter', () => {
   const adapter = new DevelopmentAuthProviderAdapter();

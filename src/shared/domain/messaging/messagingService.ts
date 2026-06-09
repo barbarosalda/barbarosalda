@@ -1,5 +1,5 @@
-import { TransportEvent } from './entities/TransportEvent.ts';
-import { TransportEventEnvelopeSchema } from './entities/TransportEventEnvelope.ts';
+import { TransportEvent } from '@shared/domain/Messaging/entities/TransportEvent';
+import { TransportEventEnvelopeSchema } from '@shared/domain/Messaging/entities/TransportEventEnvelope';
 
 /**
  * Decode a transport envelope buffer (as produced by the publishers) back

@@ -1,14 +1,14 @@
 import request from 'supertest';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { UserModule } from '@modules/user/user.module.ts';
-import type { ModuleSetupContext } from '@shared/application/ports/module/IModulePort.ts';
-import { env } from '@shared/config/env.ts';
-import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter.ts';
-import { PrismaUnitOfWorkAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaUnitOfWorkAdapter.ts';
-import { Logger } from '@shared/infrastructure/logging/Logger.ts';
-import { Messenger } from '@shared/infrastructure/messaging/Messenger.ts';
-import { createHttpApp, resetModuleRoutes } from '@shared/presentation/http/server.ts';
+import { UserModule } from '@modules/user/user.module';
+import type { ModuleSetupContext } from '@shared/application/ports/module/IModulePort';
+import { env } from '@shared/config/env';
+import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter';
+import { PrismaUnitOfWorkAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaUnitOfWorkAdapter';
+import { Logger } from '@shared/infrastructure/logging/Logger';
+import { Messenger } from '@shared/infrastructure/messaging/Messenger';
+import { createHttpApp, resetModuleRoutes } from '@shared/presentation/http/server';
 
 const databaseUrl = process.env['DATABASE_URL'];
 

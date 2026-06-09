@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { createId } from '@shared/kernel/ids/createId.ts';
+import { createId } from '@shared/kernel/ids/createId';
 
 describe('createId', () => {
   it('creates IDs prefixed with evt_', () => {

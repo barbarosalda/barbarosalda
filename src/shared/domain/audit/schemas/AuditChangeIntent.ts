@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { AuditSnapshotSchema } from '../AuditSnapshot.ts';
+import { AuditSnapshotSchema } from '@shared/domain/Audit/AuditSnapshot';
 import { JsonValueSchema } from '@shared/kernel/json/JsonValue';
 
 export const AuditCategorySchema = z.enum([

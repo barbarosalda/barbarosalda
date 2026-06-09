@@ -1,7 +1,7 @@
-import type { ILoggerPort } from '../../application/ports/logger/ILoggerPort.ts';
-import { env } from '../../config/env.ts';
-import { ConsoleLoggerAdapter } from './console/ConsoleLoggerAdapter.ts';
-import { PinoLoggerAdapter } from './pino/PinoLoggerAdapter.ts';
+import type { ILoggerPort } from '@shared/application/ports/logger/ILoggerPort';
+import { env } from '@shared/config/env';
+import { ConsoleLoggerAdapter } from '@shared/infrastructure/logging/console/ConsoleLoggerAdapter';
+import { PinoLoggerAdapter } from '@shared/infrastructure/logging/pino/PinoLoggerAdapter';
 
 function createLogger(): ILoggerPort {
   if (env.LOGGER === 'console') {

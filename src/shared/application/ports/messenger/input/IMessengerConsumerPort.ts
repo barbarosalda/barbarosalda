@@ -1,5 +1,5 @@
-import type { Topology } from '@shared/domain/messaging/entities/Topology';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent';
+import type { Topology } from '@src/shared/domain/Messaging/entities/Topology';
+import type { TransportEvent } from '@src/shared/domain/Messaging/entities/TransportEvent';
 
 /**
  * Module-side contract for handling transport events.

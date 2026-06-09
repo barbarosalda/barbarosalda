@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ChangeRecorder } from '@shared/infrastructure/database/recorders/ChangeRecorder.ts';
+import { ChangeRecorder } from '@shared/infrastructure/database/recorders/ChangeRecorder';
 
 describe('ChangeRecorder', () => {
   it('validates and stores parsed audit change intents', () => {

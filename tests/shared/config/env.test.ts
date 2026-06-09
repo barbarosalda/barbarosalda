@@ -24,7 +24,7 @@ describe('env configuration', () => {
     process.env['COGNITO_USER_POOL_ID'] = 'eu-west-1_example';
     process.env['COGNITO_CLIENT_ID'] = 'example-client-id';
 
-    const envModule = await import('@shared/config/env.ts');
+    const envModule = await import('@shared/config/env');
 
     expect(envModule.env.AUTH_PROVIDER).toBe('cognito');
     expect(envModule.env.COGNITO_REGION).toBe('eu-west-1');
@@ -41,7 +41,7 @@ describe('env configuration', () => {
     delete process.env['COGNITO_CLIENT_ID'];
     delete process.env['COGNITO_ISSUER'];
 
-    const envModule = await import('@shared/config/env.ts');
+    const envModule = await import('@shared/config/env');
 
     expect(envModule.env.AUTH_PROVIDER).toBe('dev');
   });
@@ -51,7 +51,7 @@ describe('env configuration', () => {
     process.env['NODE_ENV'] = 'production';
     process.env['AUTH_PROVIDER'] = 'dev';
 
-    await expect(import('@shared/config/env.ts')).rejects.toThrow(
+    await expect(import('@shared/config/env')).rejects.toThrow(
       'AUTH_PROVIDER=dev is forbidden when NODE_ENV=production',
     );
   });

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import type { IMessengerConsumerPort } from '@shared/application/ports/messenger/input/IMessengerConsumerPort.ts';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent.ts';
-import { NodeMQConnection } from '@shared/infrastructure/messaging/nodeMQ/NodeMQConnectionAdapter.ts';
-import { NodeMQMessenger } from '@shared/infrastructure/messaging/nodeMQ/NodeMQMessengerAdapter.ts';
-import { NodeMQTopologyAdapter } from '@shared/infrastructure/messaging/nodeMQ/NodeMQTopologyAdapter.ts';
+import type { IMessengerConsumerPort } from '@shared/application/ports/messenger/input/IMessengerConsumerPort';
+import type { TransportEvent } from '@shared/domain/Messaging/entities/TransportEvent';
+import { NodeMQConnection } from '@shared/infrastructure/messaging/nodeMQ/NodeMQConnectionAdapter';
+import { NodeMQMessenger } from '@shared/infrastructure/messaging/nodeMQ/NodeMQMessengerAdapter';
+import { NodeMQTopologyAdapter } from '@shared/infrastructure/messaging/nodeMQ/NodeMQTopologyAdapter';
 
 const flushMicrotasks = () => new Promise<void>((resolve) => setImmediate(resolve));
 

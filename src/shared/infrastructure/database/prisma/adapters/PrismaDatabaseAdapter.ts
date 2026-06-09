@@ -1,9 +1,9 @@
 import type { PrismaClient } from '@generated/prisma/client';
 
 import type { IDatabasePort } from '@shared/application/ports/database/IDatabasePort';
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
 import { Logger } from '@shared/infrastructure/logging/Logger';
-import { prismaClient } from '../prismaClient.ts';
+import { prismaClient } from '@shared/infrastructure/database/prisma/prismaClient';
 
 export class PrismaDatabaseAdapter implements IDatabasePort {
   private readonly client: PrismaClient;

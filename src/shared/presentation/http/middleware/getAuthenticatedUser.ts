@@ -1,6 +1,6 @@
 import type { Request } from 'express';
 
-import type { VerifiedAuthIdentity } from '@src/shared/domain/auth/schemas/VerifiedAuthIdentity';
+import type { VerifiedAuthIdentity } from '@src/shared/domain/Auth/schemas/VerifiedAuthIdentity';
 import { AuthUnauthorizedHttpError } from '@src/shared/presentation/http/errors/AuthHttpErrors';
 
 export function getAuthenticatedUser(request: Request): VerifiedAuthIdentity {

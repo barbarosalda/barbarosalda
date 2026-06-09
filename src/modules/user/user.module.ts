@@ -1,9 +1,9 @@
 import type { IModulePort, ModuleSetupContext } from '@shared/application/ports/module/IModulePort';
 import type { ModuleRoute } from '@shared/presentation/http/routes';
-import { PrismaUserPreferenceRepositoryAdapter } from './infrastructure/persistence/prisma/repository/PrismaUserPreferenceRepositoryAdapter.ts';
-import { ResolveAuthenticatedUserUseCase } from './application/use-cases/ResolveAuthenticatedUserUseCase.ts';
-import { UpdateAuthenticatedUserPreferencesUseCase } from './application/use-cases/UpdateAuthenticatedUserPreferencesUseCase.ts';
-import { createUserModuleRoutes } from './presentation/http/routes.ts';
+import { PrismaUserPreferenceRepositoryAdapter } from '@modules/user/infrastructure/persistence/prisma/repository/PrismaUserPreferenceRepositoryAdapter';
+import { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
+import { UpdateAuthenticatedUserPreferencesUseCase } from '@modules/user/application/use-cases/UpdateAuthenticatedUserPreferencesUseCase';
+import { createUserModuleRoutes } from '@modules/user/presentation/http/routes';
 
 export class UserModule implements IModulePort {
   readonly name = 'user';

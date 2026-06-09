@@ -6,7 +6,7 @@ import morgan from 'morgan';
 
 import type { ApplicationContext } from '@src/app/Application';
 import { getRegisteredModuleRoutes, registeredModules } from '@src/shared/config/registeredModules';
-import { LOG_MESSAGES } from '@src/shared/domain/logging/entities/LogMessage';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
 import { Logger } from '@src/shared/infrastructure/logging/Logger';
 import { requestContextMiddleware } from '@src/shared/presentation/http/context/requestContext';
 import { errorHandlerMiddleware } from '@src/shared/presentation/http/middleware/errorHandler';

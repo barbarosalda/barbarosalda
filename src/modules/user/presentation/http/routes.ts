@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
-import type { ResolveAuthenticatedUserUseCase } from '../../application/use-cases/ResolveAuthenticatedUserUseCase.ts';
-import type { UpdateAuthenticatedUserPreferencesUseCase } from '../../application/use-cases/UpdateAuthenticatedUserPreferencesUseCase.ts';
+import type { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
+import type { UpdateAuthenticatedUserPreferencesUseCase } from '@modules/user/application/use-cases/UpdateAuthenticatedUserPreferencesUseCase';
 import type { ModuleRoute } from '@shared/presentation/http/routes';
 import { asyncHandler } from '@shared/presentation/http/utils/asyncHandler';
-import { localUserCreationRemovedHttpHandler } from './handlers/localUserCreationRemovedHttpHandler.ts';
-import { resolveAuthenticatedUserHttpHandler } from './handlers/resolveAuthenticatedUserHttpHandler.ts';
-import { updateAuthenticatedUserPreferencesHttpHandler } from './handlers/updateAuthenticatedUserPreferencesHttpHandler.ts';
+import { localUserCreationRemovedHttpHandler } from '@modules/user/presentation/http/handlers/localUserCreationRemovedHttpHandler';
+import { resolveAuthenticatedUserHttpHandler } from '@modules/user/presentation/http/handlers/resolveAuthenticatedUserHttpHandler';
+import { updateAuthenticatedUserPreferencesHttpHandler } from '@modules/user/presentation/http/handlers/updateAuthenticatedUserPreferencesHttpHandler';
 
 export function createUserModuleRoutes(deps: {
   resolveAuthenticatedUserUseCase: ResolveAuthenticatedUserUseCase;

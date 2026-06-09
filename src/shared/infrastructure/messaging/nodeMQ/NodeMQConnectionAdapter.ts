@@ -1,4 +1,7 @@
-import { NodeMQChannel, type NodeMQTopologyChannelPort } from './NodeMQChannel.ts';
+import {
+  NodeMQChannel,
+  type NodeMQTopologyChannelPort,
+} from '@shared/infrastructure/messaging/nodeMQ/NodeMQChannel';
 
 /**
  * In-process connection adapter with the same lifecycle shape as RabbitMQ.

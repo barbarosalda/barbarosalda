@@ -1,7 +1,7 @@
-import type { ApplicationContext } from './Application.ts';
+import type { ApplicationContext } from '@bootstrap/Application';
 import type { IModulePort } from '@shared/application/ports/module/IModulePort';
 import { registeredModules } from '@shared/config/registeredModules';
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
 
 export async function setupRegisteredModules(appContext: ApplicationContext): Promise<void> {
   for (const module of registeredModules) {

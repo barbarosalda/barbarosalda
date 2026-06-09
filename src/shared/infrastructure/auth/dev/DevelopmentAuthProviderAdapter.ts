@@ -1,11 +1,11 @@
 import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
-import { AuthTokenInvalidError } from '@src/shared/domain/auth/errors/AuthTokenInvalidError';
+import { AuthTokenInvalidError } from '@src/shared/domain/Auth/errors/AuthTokenInvalidError';
 import {
   VerifiedAuthIdentitySchema,
   type VerifiedAuthIdentity,
-} from '@src/shared/domain/auth/schemas/VerifiedAuthIdentity';
+} from '@src/shared/domain/Auth/schemas/VerifiedAuthIdentity';
 
-import { devCognitoAccessTokenClaims } from './dev-auth.identity.ts';
+import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity';
 
 export class DevelopmentAuthProviderAdapter implements IAuthProviderPort {
   async verifyToken(_token: string): Promise<VerifiedAuthIdentity> {

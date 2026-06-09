@@ -1,9 +1,9 @@
 import type { NextFunction, Request, Response } from 'express';
 import { z } from 'zod';
 
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
 import { Logger } from '@shared/infrastructure/logging/Logger';
-import { HttpError } from '../errors/HttpError.ts';
+import { HttpError } from '@shared/presentation/http/errors/HttpError';
 
 interface ValidationIssue {
   path: string;

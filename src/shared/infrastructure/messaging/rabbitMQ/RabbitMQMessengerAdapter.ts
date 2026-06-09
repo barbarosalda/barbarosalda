@@ -1,12 +1,12 @@
 import type { IMessengerConsumerPort } from '@shared/application/ports/messenger/input/IMessengerConsumerPort';
 import type { IMessengerPort } from '@shared/application/ports/messenger/output/IMessengerPort';
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent';
-import { decodeTransportEvent } from '@shared/domain/messaging/messagingService';
-import { Logger } from '../../logging/Logger.ts';
-import { RabbitMQConnection } from './RabbitMQConnectionAdapter.ts';
-import { RabbitMQEventPublisher } from './RabbitMQEventPublisherAdapter.ts';
-import { RabbitMQTopologyAdapter } from './RabbitMQTopologyAdapter.ts';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
+import type { TransportEvent } from '@src/shared/domain/Messaging/entities/TransportEvent';
+import { decodeTransportEvent } from '@src/shared/domain/Messaging/messagingService';
+import { Logger } from '@shared/infrastructure/logging/Logger';
+import { RabbitMQConnection } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQConnectionAdapter';
+import { RabbitMQEventPublisher } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQEventPublisherAdapter';
+import { RabbitMQTopologyAdapter } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQTopologyAdapter';
 
 interface RegisteredConsumer {
   consumer: IMessengerConsumerPort;

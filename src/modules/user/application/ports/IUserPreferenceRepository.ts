@@ -4,7 +4,7 @@ import type {
   CreateUserPreferenceInput,
   UpdateUserPreferenceInput,
   UserPreference,
-} from '../../domain/preference/UserPreference.ts';
+} from '@modules/user/domain/preference/UserPreference';
 
 export interface IUserPreferenceRepository extends IRepositoryPort<UserPreference> {
   findByUserId(userId: string, tx?: ITransactionPort): Promise<UserPreference | null>;

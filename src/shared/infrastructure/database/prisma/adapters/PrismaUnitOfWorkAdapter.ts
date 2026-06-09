@@ -2,19 +2,19 @@ import { Prisma } from '@generated/prisma/client';
 
 import type { IUnitOfWorkPort } from '@shared/application/ports/database/IUnitOfWorkPort';
 import type { ITransactionPort } from '@shared/application/ports/database/ITransactionPort';
-import { type AuditChangeIntent } from '@shared/domain/audit/schemas/AuditChangeIntent';
-import type { EventIntent } from '@shared/domain/event/schemas/EventIntent';
+import { type AuditChangeIntent } from '@src/shared/domain/Audit/schemas/AuditChangeIntent';
+import type { EventIntent } from '@src/shared/domain/Event/schemas/EventIntent';
 import {
   OperationContextSchema,
   type OperationContext,
-} from '@shared/domain/operation/schemas/OperationContext';
+} from '@src/shared/domain/Operation/schemas/OperationContext';
 import { createId } from '@shared/kernel/ids/createId';
 import { AUDIT_LOG_ID_PREFIX, EVENT_ID_PREFIX } from '@shared/kernel/ids/idPrefixes';
 import type { JsonValue } from '@shared/kernel/json/JsonValue';
-import { ChangeRecorder } from '../../recorders/ChangeRecorder.ts';
-import { EventOutboxRecorder } from '../../recorders/EventOutboxRecorder.ts';
-import { PrismaDatabaseAdapter } from './PrismaDatabaseAdapter.ts';
-import { PrismaTransactionAdapter } from './PrismaTransactionAdapter.ts';
+import { ChangeRecorder } from '@shared/infrastructure/database/recorders/ChangeRecorder';
+import { EventOutboxRecorder } from '@shared/infrastructure/database/recorders/EventOutboxRecorder';
+import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter';
+import { PrismaTransactionAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaTransactionAdapter';
 
 type PrismaJsonInput = Prisma.InputJsonValue | typeof Prisma.JsonNull;
 

@@ -1,6 +1,6 @@
 import type { Request, RequestHandler, Response } from 'express';
 
-import { NotFoundError } from '../errors/HttpError.ts';
+import { NotFoundError } from '@shared/presentation/http/errors/HttpError';
 
 /**
  * Catch-all 404 handler. Must be registered after all routes so it only

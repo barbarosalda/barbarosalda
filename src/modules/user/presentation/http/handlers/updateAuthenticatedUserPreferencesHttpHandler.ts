@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 
-import { UpdateAuthenticatedUserPreferencesCommand } from '../../../application/contracts/UpdateAuthenticatedUserPreferencesContract.ts';
-import type { UpdateAuthenticatedUserPreferencesUseCase } from '../../../application/use-cases/UpdateAuthenticatedUserPreferencesUseCase.ts';
+import { UpdateAuthenticatedUserPreferencesCommand } from '@modules/user/application/contracts/UpdateAuthenticatedUserPreferencesContract';
+import type { UpdateAuthenticatedUserPreferencesUseCase } from '@modules/user/application/use-cases/UpdateAuthenticatedUserPreferencesUseCase';
 import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 
 export function updateAuthenticatedUserPreferencesHttpHandler(deps: {

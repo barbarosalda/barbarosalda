@@ -1,4 +1,4 @@
-import type { Topology } from '@shared/domain/messaging/entities/Topology';
+import type { Topology } from '@src/shared/domain/Messaging/entities/Topology';
 
 /**
  * Contract for broker topology declarations (exchanges, queues, bindings).

@@ -1,10 +1,10 @@
 import type { IMessengerPublisherPort } from '@shared/application/ports/messenger/output/IMessengerPublisherPort';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent';
-import { toTransportEventEnvelope } from '@shared/domain/messaging/entities/TransportEventEnvelope';
-import { Logger } from '../../logging/Logger.ts';
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
-import type { RabbitMQConnection } from './RabbitMQConnectionAdapter.ts';
-import { RabbitMQTopologyAdapter } from './RabbitMQTopologyAdapter.ts';
+import type { TransportEvent } from '@src/shared/domain/Messaging/entities/TransportEvent';
+import { toTransportEventEnvelope } from '@src/shared/domain/Messaging/entities/TransportEventEnvelope';
+import { Logger } from '@shared/infrastructure/logging/Logger';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
+import type { RabbitMQConnection } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQConnectionAdapter';
+import { RabbitMQTopologyAdapter } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQTopologyAdapter';
 
 /**
  * Infrastructure adapter that publishes events to RabbitMQ.

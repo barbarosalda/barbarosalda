@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { EventOutboxRecorder } from '@shared/infrastructure/database/recorders/EventOutboxRecorder.ts';
+import { EventOutboxRecorder } from '@shared/infrastructure/database/recorders/EventOutboxRecorder';
 
 describe('EventOutboxRecorder', () => {
   it('validates and stores parsed event intents', () => {

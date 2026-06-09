@@ -1,5 +1,5 @@
-import type { IMessengerConsumerPort } from '../input/IMessengerConsumerPort.ts';
-import type { IMessengerPublisherPort } from './IMessengerPublisherPort.ts';
+import type { IMessengerConsumerPort } from '@shared/application/ports/messenger/input/IMessengerConsumerPort';
+import type { IMessengerPublisherPort } from '@shared/application/ports/messenger/output/IMessengerPublisherPort';
 
 /**
  * Application port for the process-wide messenger.

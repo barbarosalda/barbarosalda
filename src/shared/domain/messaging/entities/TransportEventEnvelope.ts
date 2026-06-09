@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { z } from 'zod';
 
-import type { TransportEvent } from './TransportEvent.ts';
+import type { TransportEvent } from '@shared/domain/Messaging/entities/TransportEvent';
 
 /**
  * Zod schema for the on-the-wire envelope. Validates inbound payloads at the

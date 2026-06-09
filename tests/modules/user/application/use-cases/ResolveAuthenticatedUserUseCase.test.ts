@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest';
 
-import type { ResolveAuthenticatedUserCommand } from '@modules/user/application/contracts/ResolveAuthenticatedUserContract.ts';
-import type { IUserPreferenceRepository } from '@modules/user/application/ports/IUserPreferenceRepository.ts';
-import { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase.ts';
+import type { ResolveAuthenticatedUserCommand } from '@modules/user/application/contracts/ResolveAuthenticatedUserContract';
+import type { IUserPreferenceRepository } from '@modules/user/application/ports/IUserPreferenceRepository';
+import { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
 import type {
   CreateUserPreferenceInput,
   UpdateUserPreferenceInput,
   UserPreference,
-} from '@modules/user/domain/preference/UserPreference.ts';
-import type { IUnitOfWorkPort } from '@shared/application/ports/database/IUnitOfWorkPort.ts';
-import type { ITransactionPort } from '@shared/application/ports/database/ITransactionPort.ts';
-import type { OperationContext } from '@shared/domain/operation/schemas/OperationContext.ts';
-import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity.ts';
-import { ChangeRecorder } from '@shared/infrastructure/database/recorders/ChangeRecorder.ts';
-import { EventOutboxRecorder } from '@shared/infrastructure/database/recorders/EventOutboxRecorder.ts';
+} from '@modules/user/domain/preference/UserPreference';
+import type { IUnitOfWorkPort } from '@shared/application/ports/database/IUnitOfWorkPort';
+import type { ITransactionPort } from '@shared/application/ports/database/ITransactionPort';
+import type { OperationContext } from '@shared/domain/Operation/schemas/OperationContext';
+import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity';
+import { ChangeRecorder } from '@shared/infrastructure/database/recorders/ChangeRecorder';
+import { EventOutboxRecorder } from '@shared/infrastructure/database/recorders/EventOutboxRecorder';
 
 class FakeUnitOfWork implements IUnitOfWorkPort {
   public lastContext?: OperationContext;

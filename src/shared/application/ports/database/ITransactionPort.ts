@@ -1,5 +1,5 @@
-import type { IChangeRecorderPort } from '../audit/IChangeRecorderPort.ts';
-import type { IEventOutboxPort } from '../events/IEventOutboxPort.ts';
+import type { IChangeRecorderPort } from '@shared/application/ports/audit/IChangeRecorderPort';
+import type { IEventOutboxPort } from '@shared/application/ports/events/IEventOutboxPort';
 
 export interface ITransactionPort {
   changes: IChangeRecorderPort;

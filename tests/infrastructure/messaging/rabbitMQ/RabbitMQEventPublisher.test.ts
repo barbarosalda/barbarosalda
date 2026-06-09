@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { TransportEventEnvelopeSchema } from '@shared/domain/messaging/entities/TransportEventEnvelope.ts';
-import type { RabbitMQConnection } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQConnectionAdapter.ts';
-import { RabbitMQEventPublisher } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQEventPublisherAdapter.ts';
-import { RabbitMQTopologyAdapter } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQTopologyAdapter.ts';
+import { TransportEventEnvelopeSchema } from '@shared/domain/Messaging/entities/TransportEventEnvelope';
+import type { RabbitMQConnection } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQConnectionAdapter';
+import { RabbitMQEventPublisher } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQEventPublisherAdapter';
+import { RabbitMQTopologyAdapter } from '@shared/infrastructure/messaging/rabbitMQ/RabbitMQTopologyAdapter';
 
 interface CapturedPublish {
   exchange: string;

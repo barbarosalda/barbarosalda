@@ -1,7 +1,7 @@
 import type { Channel } from 'amqplib';
 
 import type { IMessengerTopologyPort } from '@shared/application/ports/messenger/input/IMessengerTopologyPort';
-import type { Topology } from '@shared/domain/messaging/entities/Topology';
+import type { Topology } from '@src/shared/domain/Messaging/entities/Topology';
 
 /**
  * Shared infrastructure topology bootstrap for base RabbitMQ exchanges.

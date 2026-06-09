@@ -1,6 +1,6 @@
 import type { Express, Router } from 'express';
-import { healthHandler, readyHandler } from './controller.ts';
-import { requireAuthenticatedUser } from './middleware/requireAuthenticatedUser.ts';
+import { healthHandler, readyHandler } from '@shared/presentation/http/controller';
+import { requireAuthenticatedUser } from '@shared/presentation/http/middleware/requireAuthenticatedUser';
 import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
 
 interface AppReadinessChecks {

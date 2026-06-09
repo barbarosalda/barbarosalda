@@ -1,7 +1,7 @@
 import type { Request, RequestHandler } from 'express';
 
 import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
-import { AuthTokenInvalidError } from '../../../domain/auth/errors/AuthTokenInvalidError.ts';
+import { AuthTokenInvalidError } from '@shared/domain/Auth/errors/AuthTokenInvalidError';
 import { AuthUnauthorizedHttpError } from '@src/shared/presentation/http/errors/AuthHttpErrors';
 
 function extractBearerToken(request: Request): string {

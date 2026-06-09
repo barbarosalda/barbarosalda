@@ -1,4 +1,4 @@
-import type { RequestContext } from './context/requestContext';
+import type { RequestContext } from '@shared/presentation/http/context/requestContext';
 
 declare global {
   namespace Express {

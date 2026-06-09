@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { TransportEventEnvelopeSchema } from '@shared/domain/messaging/entities/TransportEventEnvelope.ts';
-import { NodeMQConnection } from '@shared/infrastructure/messaging/nodeMQ/NodeMQConnectionAdapter.ts';
-import { NodeMQEventPublisher } from '@shared/infrastructure/messaging/nodeMQ/NodeMQEventPublisherAdapter.ts';
-import { NodeMQTopologyAdapter } from '@shared/infrastructure/messaging/nodeMQ/NodeMQTopologyAdapter.ts';
+import { TransportEventEnvelopeSchema } from '@shared/domain/Messaging/entities/TransportEventEnvelope';
+import { NodeMQConnection } from '@shared/infrastructure/messaging/nodeMQ/NodeMQConnectionAdapter';
+import { NodeMQEventPublisher } from '@shared/infrastructure/messaging/nodeMQ/NodeMQEventPublisherAdapter';
+import { NodeMQTopologyAdapter } from '@shared/infrastructure/messaging/nodeMQ/NodeMQTopologyAdapter';
 
 const flushMicrotasks = () => new Promise<void>((resolve) => setImmediate(resolve));
 

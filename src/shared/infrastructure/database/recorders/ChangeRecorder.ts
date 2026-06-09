@@ -2,7 +2,7 @@ import type { IChangeRecorderPort } from '@shared/application/ports/audit/IChang
 import {
   AuditChangeIntentSchema,
   type AuditChangeIntent,
-} from '@shared/domain/audit/schemas/AuditChangeIntent';
+} from '@src/shared/domain/Audit/schemas/AuditChangeIntent';
 
 export class ChangeRecorder implements IChangeRecorderPort {
   private readonly changes: AuditChangeIntent[] = [];

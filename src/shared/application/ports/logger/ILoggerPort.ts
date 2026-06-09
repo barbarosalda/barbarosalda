@@ -1,13 +1,13 @@
-import type { LogMessage } from '@shared/domain/logging/entities/LogMessage';
-import type { LogMetadata } from '@shared/domain/logging/entities/LogMetadata';
+import type { LogMessage } from '@src/shared/domain/Logging/entities/LogMessage';
+import type { LogMetadata } from '@src/shared/domain/Logging/entities/LogMetadata';
 
-export { LOG_LEVELS, type LogLevel } from '@shared/domain/logging/entities/LogLevel';
-export type { LogEntry } from '@shared/domain/logging/entities/LogEntry';
+export { LOG_LEVELS, type LogLevel } from '@src/shared/domain/Logging/entities/LogLevel';
+export type { LogEntry } from '@src/shared/domain/Logging/entities/LogEntry';
 export type {
   LogMessage,
   StandardLogMessage,
-} from '@shared/domain/logging/entities/LogMessage';
-export type { LogMetadata } from '@shared/domain/logging/entities/LogMetadata';
+} from '@src/shared/domain/Logging/entities/LogMessage';
+export type { LogMetadata } from '@src/shared/domain/Logging/entities/LogMetadata';
 
 /**
  * Contract for structured logging used across runtime components.

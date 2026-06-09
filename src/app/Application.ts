@@ -8,7 +8,7 @@ import { PrismaDatabaseAdapter } from '@src/shared/infrastructure/database/prism
 import { PrismaUnitOfWorkAdapter } from '@src/shared/infrastructure/database/prisma/adapters/PrismaUnitOfWorkAdapter';
 import { Messenger } from '@src/shared/infrastructure/messaging/Messenger';
 import { AuthProvider } from '@src/shared/infrastructure/auth/AuthProvider';
-import { LOG_MESSAGES } from '@src/shared/domain/logging/entities/LogMessage';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
 import { Logger } from '@src/shared/infrastructure/logging/Logger';
 import { env } from '@src/shared/config/env';
 import type { HttpServer } from '@src/app/server';
@@ -19,7 +19,7 @@ import {
   startHttpServer,
   startMessenger,
   startModules,
-} from './processes/applicationStart.ts';
+} from '@bootstrap/processes/applicationStart';
 import {
   logShutdownComplete,
   logShutdownSignalReceived,
@@ -27,7 +27,7 @@ import {
   stopHttpServer,
   stopMessenger,
   stopModules,
-} from './processes/applicationStop.ts';
+} from '@bootstrap/processes/applicationStop';
 
 export interface ApplicationContext extends ModuleSetupContext {
   database: IDatabasePort;

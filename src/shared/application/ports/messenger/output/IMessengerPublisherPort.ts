@@ -1,4 +1,4 @@
-import { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent';
+import { TransportEvent } from '@src/shared/domain/Messaging/entities/TransportEvent';
 
 /**
  * Application port for publishing outbound events.

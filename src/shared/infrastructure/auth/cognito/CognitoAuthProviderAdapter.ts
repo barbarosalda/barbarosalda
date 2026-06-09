@@ -1,8 +1,8 @@
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 
 import type { IAuthProviderPort } from '@src/shared/application/ports/auth/IAuthProviderPort';
-import { AuthTokenInvalidError } from '@src/shared/domain/auth/errors/AuthTokenInvalidError';
-import { VerifiedAuthIdentitySchema } from '@src/shared/domain/auth/schemas/VerifiedAuthIdentity';
+import { AuthTokenInvalidError } from '@src/shared/domain/Auth/errors/AuthTokenInvalidError';
+import { VerifiedAuthIdentitySchema } from '@src/shared/domain/Auth/schemas/VerifiedAuthIdentity';
 
 type CognitoAuthProviderConfig = {
   userPoolId: string;

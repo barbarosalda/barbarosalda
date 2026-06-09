@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { AuditSnapshotSchema } from '@shared/domain/audit/AuditSnapshot';
+import { AuditSnapshotSchema } from '@src/shared/domain/Audit/AuditSnapshot';
 import { JsonValueSchema } from '@shared/kernel/json/JsonValue';
 
 export const UserPreferenceSchema = z.object({

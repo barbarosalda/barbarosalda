@@ -1,8 +1,8 @@
 import type { IMessengerPublisherPort } from '@shared/application/ports/messenger/output/IMessengerPublisherPort';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent';
-import { toTransportEventEnvelope } from '@shared/domain/messaging/entities/TransportEventEnvelope';
-import type { NodeMQConnection } from './NodeMQConnectionAdapter.ts';
-import { NodeMQTopologyAdapter } from './NodeMQTopologyAdapter.ts';
+import type { TransportEvent } from '@src/shared/domain/Messaging/entities/TransportEvent';
+import { toTransportEventEnvelope } from '@src/shared/domain/Messaging/entities/TransportEventEnvelope';
+import type { NodeMQConnection } from '@shared/infrastructure/messaging/nodeMQ/NodeMQConnectionAdapter';
+import { NodeMQTopologyAdapter } from '@shared/infrastructure/messaging/nodeMQ/NodeMQTopologyAdapter';
 
 /**
  * Infrastructure adapter that publishes events to an in-process NodeMQ channel.

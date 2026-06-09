@@ -3,8 +3,8 @@ import { EventEmitter } from 'node:events';
 import amqp, { type Channel, type ChannelModel } from 'amqplib';
 
 import { env } from '@shared/config/env';
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
-import { Logger } from '../../logging/Logger.ts';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
+import { Logger } from '@shared/infrastructure/logging/Logger';
 
 export interface RabbitMQConnectionEvents {
   /** Emitted whenever a fresh connection + channel are ready (initial or reconnected). */

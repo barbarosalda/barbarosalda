@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest';
 import {
   TransportEventEnvelopeSchema,
   toTransportEventEnvelope,
-} from '@shared/domain/messaging/entities/TransportEventEnvelope.ts';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent.ts';
+} from '@shared/domain/Messaging/entities/TransportEventEnvelope';
+import type { TransportEvent } from '@shared/domain/Messaging/entities/TransportEvent';
 
 describe('toTransportEventEnvelope', () => {
   const baseEvent: TransportEvent = {

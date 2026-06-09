@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { VerifiedAuthIdentitySchema } from '@shared/domain/auth/schemas/VerifiedAuthIdentity.ts';
+import { VerifiedAuthIdentitySchema } from '@shared/domain/Auth/schemas/VerifiedAuthIdentity';
 
 describe('VerifiedAuthIdentitySchema', () => {
   it('validates a correct verified identity', () => {

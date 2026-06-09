@@ -1,12 +1,12 @@
 import type { IMessengerConsumerPort } from '@shared/application/ports/messenger/input/IMessengerConsumerPort';
 import type { IMessengerPort } from '@shared/application/ports/messenger/output/IMessengerPort';
-import { LOG_MESSAGES } from '@shared/domain/logging/entities/LogMessage';
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent';
-import { decodeTransportEvent } from '@shared/domain/messaging/messagingService';
-import { Logger } from '../../logging/Logger.ts';
-import { NodeMQConnection } from './NodeMQConnectionAdapter.ts';
-import { NodeMQEventPublisher } from './NodeMQEventPublisherAdapter.ts';
-import { NodeMQTopologyAdapter } from './NodeMQTopologyAdapter.ts';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
+import type { TransportEvent } from '@src/shared/domain/Messaging/entities/TransportEvent';
+import { decodeTransportEvent } from '@src/shared/domain/Messaging/messagingService';
+import { Logger } from '@shared/infrastructure/logging/Logger';
+import { NodeMQConnection } from '@shared/infrastructure/messaging/nodeMQ/NodeMQConnectionAdapter';
+import { NodeMQEventPublisher } from '@shared/infrastructure/messaging/nodeMQ/NodeMQEventPublisherAdapter';
+import { NodeMQTopologyAdapter } from '@shared/infrastructure/messaging/nodeMQ/NodeMQTopologyAdapter';
 
 /**
  * In-process messenger backed by NodeMQ.

@@ -6,11 +6,11 @@ import type { IAuthProviderPort } from '@shared/application/ports/auth/IAuthProv
 import { env } from '@shared/config/env';
 import { AuthProvider } from '@shared/infrastructure/auth/AuthProvider';
 import { Logger } from '@shared/infrastructure/logging/Logger';
-import { requestContextMiddleware } from './context/requestContext.ts';
-import { errorHandlerMiddleware } from './middleware/errorHandler.ts';
-import { notFoundMiddleware } from './middleware/notFound.ts';
-import { listModuleRoutes, resetModuleRoutes } from './moduleRouteRegistry.ts';
-import { type ModuleRoute, registerRoutes } from './routes.ts';
+import { requestContextMiddleware } from '@shared/presentation/http/context/requestContext';
+import { errorHandlerMiddleware } from '@shared/presentation/http/middleware/errorHandler';
+import { notFoundMiddleware } from '@shared/presentation/http/middleware/notFound';
+import { listModuleRoutes, resetModuleRoutes } from '@shared/presentation/http/moduleRouteRegistry';
+import { type ModuleRoute, registerRoutes } from '@shared/presentation/http/routes';
 
 interface CreateHttpAppOptions {
   authProvider?: IAuthProviderPort;

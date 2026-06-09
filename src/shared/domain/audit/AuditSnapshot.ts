@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { JsonValueSchema } from '../../kernel/json/JsonValue.ts';
+import { JsonValueSchema } from '@shared/kernel/json/JsonValue';
 
 export const AuditSnapshotSchema = z.object({
   entityType: z.string().min(1),

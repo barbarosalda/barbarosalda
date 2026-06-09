@@ -1,11 +1,11 @@
 import { IDatabasePort } from '@src/shared/application/ports/database/IDatabasePort';
 import { IMessengerPort } from '@src/shared/application/ports/messenger/output/IMessengerPort';
 import { env } from '@src/shared/config/env';
-import { LOG_MESSAGES } from '@src/shared/domain/logging/entities/LogMessage';
+import { LOG_MESSAGES } from '@src/shared/domain/Logging/entities/LogMessage';
 import { Logger } from '@src/shared/infrastructure/logging/Logger';
-import { ApplicationContext } from '../Application.ts';
+import { ApplicationContext } from '@bootstrap/Application';
 import { HttpServer } from '@src/app/server';
-import { setupRegisteredModules } from '../modules.ts';
+import { setupRegisteredModules } from '@bootstrap/modules';
 
 /**
  * Log the startup of the application.

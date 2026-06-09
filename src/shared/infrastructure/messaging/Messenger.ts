@@ -1,7 +1,7 @@
-import type { IMessengerPort } from '../../application/ports/messenger/output/IMessengerPort.ts';
-import { env } from '../../config/env.ts';
-import { createNodeMQ } from './nodeMQ/createNodeMQ.ts';
-import { createRabbitMQ } from './rabbitMQ/createRabbitMQ.ts';
+import type { IMessengerPort } from '@shared/application/ports/messenger/output/IMessengerPort';
+import { env } from '@shared/config/env';
+import { createNodeMQ } from '@shared/infrastructure/messaging/nodeMQ/createNodeMQ';
+import { createRabbitMQ } from '@shared/infrastructure/messaging/rabbitMQ/createRabbitMQ';
 
 function createMessenger(): IMessengerPort {
   if (env.MESSENGER === 'rabbitmq') {

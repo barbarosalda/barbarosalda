@@ -1,5 +1,5 @@
 import type { IEventOutboxPort } from '@shared/application/ports/events/IEventOutboxPort';
-import { EventIntentSchema, type EventIntent } from '@shared/domain/event/schemas/EventIntent';
+import { EventIntentSchema, type EventIntent } from '@src/shared/domain/Event/schemas/EventIntent';
 
 export class EventOutboxRecorder implements IEventOutboxPort {
   private readonly events: EventIntent[] = [];

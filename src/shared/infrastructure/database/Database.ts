@@ -1,5 +1,5 @@
 import { IDatabasePort } from '@src/shared/application/ports/database/IDatabasePort';
-import { PrismaDatabaseAdapter } from './prisma/adapters/PrismaDatabaseAdapter.ts';
+import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter';
 
 function createDatabase(): IDatabasePort {
   return new PrismaDatabaseAdapter();

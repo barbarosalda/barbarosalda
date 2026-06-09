@@ -4,7 +4,7 @@
 
 This document defines the first durable database implementation slice for TraderLock backend. It sets practical, implementation-oriented boundaries so the team can deliver one vertical slice safely without committing to the full future schema.
 
-This is an architecture decision and execution guide only. Runtime code, Prisma schema files, and Docker app packaging are intentionally out of scope here.
+This is historical context for the first persistence slice. For the current implemented system design, read `docs/architecture/current-system-design.md` first.
 
 ## Database Stack Decision
 
@@ -15,9 +15,8 @@ This is an architecture decision and execution guide only. Runtime code, Prisma 
 
 ## First Implementation Slice Scope
 
-Only the following tables are included in the first slice:
+Only the following durable tables are active in the current first slice:
 
-- `users`
 - `user_preferences`
 - `events`
 - `audit_logs`
@@ -82,29 +81,25 @@ This allows strict per-model audit shape while preserving a shared base audit co
 - First slice guarantee: `tx.events.enqueue(...)` persists durable event rows in the same transaction.
 - `events` rows are append-mostly; only processing metadata can be updated post-insert.
 
-## Auth Field Decision for `users`
+## Auth Identity Decision
 
-Add neutral external identity fields now:
+TraderLock currently does not persist a local `users` table. The `user_preferences.user_id` column stores the verified external identity id.
 
-- `external_auth_provider`
-- `external_auth_user_id`
-
-Add a unique constraint on (`external_auth_provider`, `external_auth_user_id`).
+For Cognito, `user_id` is the User Pool `sub` claim from a verified JWT. Clients must never send `user_id`; protected HTTP routes derive it from `request.context.actor.userId`.
 
 Deferred:
 
-- auth flow implementation,
-- auth provider SDK integration,
+- local user profiles,
 - `auth_identities` table,
-- provider-specific fields such as `clerk_user_id` or `auth0_user_id`.
+- provider-specific persisted identity tables,
+- account/license ownership models beyond preferences.
 
 ## IDs and Timestamps
 
 - IDs are prefixed, time-sortable string identifiers stored as `TEXT`.
 - IDs are generated in shared code before insert.
 - Prefix examples:
-  - `user_...`
-  - `pref_...`
+  - `upr_...`
   - `evt_...`
   - `aud_...`
 
@@ -168,7 +163,6 @@ The first real implementation must prove all of the following in one transaction
 
 ## Out of scope for this slice
 
-- auth implementation,
 - RabbitMQ,
 - `EventOutboxDispatcher`,
 - full rule/risk engine,
@@ -184,8 +178,7 @@ The first real implementation must prove all of the following in one transaction
 - PostgreSQL + Prisma 7 are active in the first DB slice (`package.json`, `prisma/`, `docker-compose.yml`).
 - Prisma Client generation is configured and output to `src/generated/prisma`.
 - Prisma usage is constrained to infrastructure and Prisma-focused integration testing.
-- First migration is implemented for:
-  - `users`
+- Current Prisma schema is implemented for:
   - `user_preferences`
   - `events`
   - `audit_logs`
@@ -203,12 +196,13 @@ The first real implementation must prove all of the following in one transaction
 - Generic transaction recorders are implemented:
   - `ChangeRecorder`
   - `EventOutboxRecorder`
-- User first-slice module components are implemented:
-  - domain models for `User` and `UserPreference` with audit snapshot factories and audit action constants,
-  - repository ports,
-  - Prisma repository adapters,
-  - `UserModule` composition root wiring `CreateUserWithPreferencesUseCase`.
-- `CreateUserWithPreferencesUseCase` records both audit intents and event intents in one transaction.
+- User module components are implemented:
+  - domain model for `UserPreference` with audit snapshot factory and audit action constants,
+  - repository port,
+  - Prisma repository adapter,
+  - `UserModule` composition root wiring authenticated-user preference use cases.
+- `ResolveAuthenticatedUserUseCase` creates default preferences when an authenticated user has none.
+- `UpdateAuthenticatedUserPreferencesUseCase` updates preferences and records audit/event intents in one transaction.
 
 ### Current startup/lifecycle state
 
@@ -231,7 +225,6 @@ The first real implementation must prove all of the following in one transaction
   2. run `prisma migrate deploy` against `postgres_test`,
   3. execute `vitest.integration.config.ts`.
 - The first integration slice proves durable persistence in one real DB transaction for:
-  - `users`
   - `user_preferences`
   - `audit_logs`
   - `events`
@@ -245,36 +238,38 @@ The first real implementation must prove all of the following in one transaction
 
 ### Current first vertical slice behavior
 
-Current implemented behavior for `CreateUserWithPreferencesUseCase`:
+Current implemented behavior for authenticated user preference resolution:
 
-1. create `users` record,
-2. create `user_preferences` record,
-3. record audit change intent(s),
-4. enqueue event intent(s),
-5. persist all writes in one database transaction,
-6. verify persisted rows through integration test against real PostgreSQL.
+1. verify auth in shared HTTP middleware,
+2. derive `userId` from `request.context.actor.userId`,
+3. create a `user_preferences` record when missing,
+4. record audit change intent(s),
+5. enqueue durable event intent(s) where applicable,
+6. persist all writes in one database transaction,
+7. verify persisted rows through integration tests against real PostgreSQL.
 
 ### HTTP slice implemented
 
-The first HTTP write slice is now implemented for user creation:
+The current HTTP slice is implemented for authenticated user preferences:
 
-- Route: `POST /users`.
+- `POST /users` is a public compatibility endpoint that returns `410 LOCAL_USER_CREATION_REMOVED`.
+- `GET /users/me` is protected and resolves/creates preferences for the authenticated identity.
+- `PATCH /users/me/preferences` is protected and updates preferences for the authenticated identity.
 - Presentation layer location: `src/modules/user/presentation/http`.
-- Flow:
-  1. route registration from `src/modules/user/presentation/http/routes.ts`,
-  2. request parsing + use-case delegation in `src/modules/user/presentation/http/handlers/createUserWithPreferencesHttpHandler.ts`,
-  3. auth resolution + use-case delegation in `src/modules/user/presentation/http/handlers/resolveAuthenticatedUserHttpHandler.ts`,
-  4. safe error responses from `userHttpErrorHandler` (validation `400`, unauthorized `401`, domain access errors `403`, unexpected `500`).
-- For `POST /users`, auth is optional and `actorUserId` may be `null`.
+- Shared HTTP registration applies auth middleware to routes with `access: 'protected'`.
+- Safe error responses are handled by shared `errorHandlerMiddleware`:
+  - validation errors as `400`,
+  - unauthorized errors as `401`,
+  - not found errors as `404`,
+  - unexpected errors as logged `500`.
 - No Messenger publish step is part of this slice.
-- The use case still creates one durable `events` row in the database transaction; transport dispatch via `EventOutboxDispatcher` remains deferred.
+- The use cases create durable `events` rows in the database transaction where they enqueue event intents; transport dispatch via `EventOutboxDispatcher` remains deferred.
 - Coverage:
-  - unit tests for endpoint handler/error handler/route behavior (`tests/modules/user/presentation/http/handlers/createUserWithPreferencesHttpHandler.test.ts`, `tests/modules/user/presentation/http/errors/userHttpErrors.test.ts`, `tests/modules/user/presentation/http/routes.test.ts`),
-  - opt-in HTTP integration test for `POST /users` (`tests/modules/user/integration/UserHttp.integration.test.ts`) using `supertest` with `createHttpApp` (no real port bind).
+  - unit tests for route behavior and handlers under `tests/modules/user/presentation/http`,
+  - opt-in HTTP integration test for `/users/me` flows (`tests/modules/user/integration/UserHttp.integration.test.ts`) using `supertest` with `createHttpApp` without opening a real port.
 
 ## Deferred intentionally
 
-- auth implementation,
 - Messenger consumers,
 - `EventOutboxDispatcher`,
 - RabbitMQ transport integration,

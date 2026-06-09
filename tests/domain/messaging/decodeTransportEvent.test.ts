@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import type { TransportEvent } from '@shared/domain/messaging/entities/TransportEvent.ts';
-import { toTransportEventEnvelope } from '@shared/domain/messaging/entities/TransportEventEnvelope.ts';
-import { decodeTransportEvent } from '@shared/domain/messaging/messagingService.ts';
+import type { TransportEvent } from '@shared/domain/Messaging/entities/TransportEvent';
+import { toTransportEventEnvelope } from '@shared/domain/Messaging/entities/TransportEventEnvelope';
+import { decodeTransportEvent } from '@shared/domain/Messaging/messagingService';
 
 describe('decodeTransportEvent', () => {
   it('round-trips a TransportEvent through its envelope', () => {

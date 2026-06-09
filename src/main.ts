@@ -1,6 +1,6 @@
-import { LOG_MESSAGES } from './shared/domain/logging/entities/LogMessage.ts';
-import { Logger } from './shared/infrastructure/logging/Logger.ts';
-import { Application } from './app/Application.ts';
+import { Application } from '@bootstrap/Application';
+import { LOG_MESSAGES } from '@shared/domain/Logging/entities/LogMessage';
+import { Logger } from '@shared/infrastructure/logging/Logger';
 
 /**
  * Composition root.

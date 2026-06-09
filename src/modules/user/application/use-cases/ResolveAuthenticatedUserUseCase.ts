@@ -2,12 +2,12 @@ import type { IUnitOfWorkPort } from '@shared/application/ports/database/IUnitOf
 import {
   UserPreferenceAuditActions,
   toUserPreferenceAuditSnapshot,
-} from '../../domain/preference/UserPreference.ts';
+} from '@modules/user/domain/preference/UserPreference';
 import {
   ResolveAuthenticatedUserCommand,
   ResolveAuthenticatedUserResult,
-} from '../contracts/ResolveAuthenticatedUserContract.ts';
-import type { IUserPreferenceRepository } from '../ports/IUserPreferenceRepository.ts';
+} from '@modules/user/application/contracts/ResolveAuthenticatedUserContract';
+import type { IUserPreferenceRepository } from '@modules/user/application/ports/IUserPreferenceRepository';
 
 export class ResolveAuthenticatedUserUseCase {
   constructor(
