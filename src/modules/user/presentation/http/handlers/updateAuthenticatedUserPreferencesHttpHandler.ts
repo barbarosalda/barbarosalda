@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { UpdateAuthenticatedUserPreferencesCommand } from '@modules/user/application/contracts/UpdateAuthenticatedUserPreferencesContract';
+import { UpdateAuthenticatedUserPreferencesCommand } from '@src/modules/user/application/contracts/UpdateAuthenticatedUserPreferencesContract';
 import type { UpdateAuthenticatedUserPreferencesUseCase } from '@modules/user/application/use-cases/UpdateAuthenticatedUserPreferencesUseCase';
 import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 

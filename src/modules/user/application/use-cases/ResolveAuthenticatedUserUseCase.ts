@@ -6,7 +6,7 @@ import {
 import {
   ResolveAuthenticatedUserCommand,
   ResolveAuthenticatedUserResult,
-} from '@modules/user/application/contracts/ResolveAuthenticatedUserContract';
+} from '@src/modules/user/application/contracts/ResolveAuthenticatedUserContract';
 import type { IUserPreferenceRepository } from '@modules/user/application/ports/IUserPreferenceRepository';
 
 export class ResolveAuthenticatedUserUseCase {

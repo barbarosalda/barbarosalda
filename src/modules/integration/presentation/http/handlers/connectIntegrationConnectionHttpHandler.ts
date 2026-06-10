@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { ConnectIntegrationConnectionCommand } from '@modules/integration/application/contracts/ConnectIntegrationConnectionContract';
+import { ConnectIntegrationConnectionCommand } from '@src/modules/integration/application/contracts/ConnectIntegrationConnectionContract';
 import type { ConnectIntegrationConnectionUseCase } from '@modules/integration/application/use-cases/ConnectIntegrationConnectionUseCase';
 import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 

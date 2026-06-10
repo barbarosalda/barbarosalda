@@ -12,7 +12,7 @@ import type { IPlatformIntegrationRegistry } from '@modules/integration/applicat
 import {
   ConnectIntegrationConnectionCommand,
   ConnectIntegrationConnectionResult,
-} from '@modules/integration/application/contracts/ConnectIntegrationConnectionContract';
+} from '@src/modules/integration/application/contracts/ConnectIntegrationConnectionContract';
 import { enqueuePlatformIntegrationEvents } from '@modules/integration/application/services/platformIntegrationEventMapper';
 import { publishPlatformIntegrationEvents } from '@modules/integration/application/services/publishPlatformIntegrationEvents';
 

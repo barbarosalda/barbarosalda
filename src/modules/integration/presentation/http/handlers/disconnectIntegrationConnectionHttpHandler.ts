@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { DisconnectIntegrationConnectionCommand } from '@modules/integration/application/contracts/DisconnectIntegrationConnectionContract';
+import { DisconnectIntegrationConnectionCommand } from '@src/modules/integration/application/contracts/DisconnectIntegrationConnectionContract';
 import type { DisconnectIntegrationConnectionUseCase } from '@modules/integration/application/use-cases/DisconnectIntegrationConnectionUseCase';
 import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 

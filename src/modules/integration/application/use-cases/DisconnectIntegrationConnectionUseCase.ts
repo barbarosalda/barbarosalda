@@ -11,7 +11,7 @@ import type { IPlatformIntegrationRegistry } from '@modules/integration/applicat
 import {
   DisconnectIntegrationConnectionCommand,
   DisconnectIntegrationConnectionResult,
-} from '@modules/integration/application/contracts/DisconnectIntegrationConnectionContract';
+} from '@src/modules/integration/application/contracts/DisconnectIntegrationConnectionContract';
 import { enqueuePlatformIntegrationEvents } from '@modules/integration/application/services/platformIntegrationEventMapper';
 import { publishPlatformIntegrationEvents } from '@modules/integration/application/services/publishPlatformIntegrationEvents';
 

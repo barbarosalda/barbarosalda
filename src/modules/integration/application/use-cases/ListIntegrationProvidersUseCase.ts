@@ -1,5 +1,5 @@
 import type { IIntegrationProviderRepository } from '@modules/integration/application/port/repository/IIntegrationProviderRepository';
-import { ListIntegrationProvidersResult } from '@modules/integration/application/contracts/ListIntegrationProvidersContract';
+import { ListIntegrationProvidersResult } from '@src/modules/integration/application/contracts/ListIntegrationProvidersContract';
 
 /**
  * Use case for listing integration providers.

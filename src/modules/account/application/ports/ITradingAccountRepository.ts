@@ -6,7 +6,7 @@ import type {
   CreateTradingAccountInput,
 } from '@modules/account/domain/TradingAccount/TradingAccount';
 
-export interface IAccountRepository extends IRepositoryPort<TradingAccount> {
+export interface ITradingAccountRepository extends IRepositoryPort<TradingAccount> {
   findByUserId(userId: string, tx?: ITransactionPort): Promise<TradingAccount | null>;
   create(input: CreateTradingAccountInput, tx?: ITransactionPort): Promise<TradingAccount>;
   updateById(id: string, input: UpdateTradingAccountInput, tx?: ITransactionPort): Promise<TradingAccount>;

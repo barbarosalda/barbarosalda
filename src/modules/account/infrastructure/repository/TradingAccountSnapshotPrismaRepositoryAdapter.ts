@@ -1,4 +1,4 @@
-import type { IAccountSnapshotRepository } from '@modules/account/application/ports/IAccountSnapshotRepository';
+import type { ITradingAccountSnapshotRepository } from '@src/modules/account/application/ports/ITradingAccountSnapshotRepository';
 import type {
   CreateTradingAccountSnapshotInput,
   TradingAccountSnapshot,
@@ -17,7 +17,7 @@ const TRADING_ACCOUNT_SNAPSHOT_ID_PREFIX = 'tas';
 /**
  * Adapter for the trading account snapshot repository.
  */
-export class TradingAccountSnapshotPrismaRepositoryAdapter implements IAccountSnapshotRepository {
+export class TradingAccountSnapshotPrismaRepositoryAdapter implements ITradingAccountSnapshotRepository {
   /**
    * Constructor for the trading account snapshot repository adapter.
    * @param database - The database to use.

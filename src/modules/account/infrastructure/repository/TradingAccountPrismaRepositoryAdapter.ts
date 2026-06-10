@@ -1,4 +1,4 @@
-import type { IAccountRepository } from '@modules/account/application/ports/IAccountRepository';
+import type { ITradingAccountRepository } from '@src/modules/account/application/ports/ITradingAccountRepository';
 import type {
   CreateTradingAccountInput,
   TradingAccount,
@@ -19,7 +19,7 @@ const TRADING_ACCOUNT_ID_PREFIX = 'tac';
 /**
  * Adapter for the trading account repository.
  */
-export class TradingAccountPrismaRepositoryAdapter implements IAccountRepository {
+export class TradingAccountPrismaRepositoryAdapter implements ITradingAccountRepository {
   /**
    * Constructor for the trading account repository adapter.
    * @param database - The database to use.

@@ -5,7 +5,7 @@ import type {
     TradingAccountSnapshot,
 } from '../../domain/TradingAccountSnapshot/TradingAccountSnapshot.ts';
 
-export interface IAccountSnapshotRepository extends IRepositoryPort<TradingAccountSnapshot> {
+export interface ITradingAccountSnapshotRepository extends IRepositoryPort<TradingAccountSnapshot> {
     findLatestByTradingAccountId(tradingAccountId: string, tx?: ITransactionPort): Promise<TradingAccountSnapshot | null>;
     create(input: CreateTradingAccountSnapshotInput, tx?: ITransactionPort): Promise<TradingAccountSnapshot>;
 }

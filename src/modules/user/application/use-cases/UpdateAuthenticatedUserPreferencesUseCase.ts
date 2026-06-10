@@ -6,7 +6,7 @@ import {
 import {
   UpdateAuthenticatedUserPreferencesCommand,
   UpdateAuthenticatedUserPreferencesResult,
-} from '@modules/user/application/contracts/UpdateAuthenticatedUserPreferencesContract';
+} from '@src/modules/user/application/contracts/UpdateAuthenticatedUserPreferencesContract';
 import type { IUserPreferenceRepository } from '@modules/user/application/ports/IUserPreferenceRepository';
 
 export class UpdateAuthenticatedUserPreferencesUseCase {

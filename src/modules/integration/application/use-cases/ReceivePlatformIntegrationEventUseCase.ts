@@ -6,7 +6,7 @@ import type { IPlatformIntegrationRegistry } from '@modules/integration/applicat
 import {
   ReceivePlatformIntegrationEventCommand,
   ReceivePlatformIntegrationEventResult,
-} from '@modules/integration/application/contracts/ReceivePlatformIntegrationEventContract';
+} from '@src/modules/integration/application/contracts/ReceivePlatformIntegrationEventContract';
 import { enqueuePlatformIntegrationEvents } from '@modules/integration/application/services/platformIntegrationEventMapper';
 import { publishPlatformIntegrationEvents } from '@modules/integration/application/services/publishPlatformIntegrationEvents';
 

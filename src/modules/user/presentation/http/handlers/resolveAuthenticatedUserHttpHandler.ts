@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 
-import { ResolveAuthenticatedUserCommand } from '@modules/user/application/contracts/ResolveAuthenticatedUserContract';
+import { ResolveAuthenticatedUserCommand } from '@src/modules/user/application/contracts/ResolveAuthenticatedUserContract';
 import type { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
 import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 
