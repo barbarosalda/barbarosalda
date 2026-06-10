@@ -1,6 +1,7 @@
 import type { IModulePort } from '@shared/application/ports/module/IModulePort';
 import { UserModule } from '@modules/user/user.module';
 import { IntegrationModule } from '@modules/integration/integration.module';
+import { AccountModule } from '@src/modules/account/account.module';
 
 /**
  * Compile-time list of application modules that participate in the boot lifecycle.
@@ -11,6 +12,7 @@ import { IntegrationModule } from '@modules/integration/integration.module';
 export const registeredModules: IModulePort[] = [
   new UserModule(),
   new IntegrationModule(),
+  new AccountModule(),
 ];
 
 export function getReadyRegisteredModules(): IModulePort[] {

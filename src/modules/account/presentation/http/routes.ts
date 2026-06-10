@@ -13,6 +13,11 @@ import { getPropFirmDetailsHttpHandler } from '@src/modules/account/presentation
 import { GetTradingAccountsUseCase } from '@src/modules/account/application/use-cases/GetTradingAccountsUseCase';
 import { getTradingAccountsHttpHandler } from '@src/modules/account/presentation/http/handlers/GetTradingAccountsHttpHandler';
 
+/**
+ * Creates the account module routes.
+ * @param deps - The dependencies.
+ * @returns The routes.
+ */
 export function createAccountModuleRoutes(deps: {
   getPropFirmsUseCase: GetPropFirmsUseCase;
   getPropFirmDetailsUseCase: GetPropFirmDetailsUseCase;
