@@ -24,6 +24,7 @@ export function createIntegrationModuleRoutes(deps: {
 }): ModuleRoute[] {
   const protectedRouter = Router();
 
+  // Should be moved to account module.
   protectedRouter.get(
     '/providers',
     asyncHandler(listIntegrationProvidersHttpHandler(deps)),
@@ -39,6 +40,7 @@ export function createIntegrationModuleRoutes(deps: {
     asyncHandler(disconnectIntegrationConnectionHttpHandler(deps)),
   );
 
+  // SHould be removed and handled async but platform events coming from other modules like risk module and account module.
   protectedRouter.post(
     '/connections/:connectionId/events',
     asyncHandler(receivePlatformIntegrationEventHttpHandler(deps)),

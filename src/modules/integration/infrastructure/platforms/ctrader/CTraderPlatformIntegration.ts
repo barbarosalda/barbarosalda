@@ -39,6 +39,7 @@ function mergeMetadata(
  */
 export class CTraderPlatformIntegration implements IPlatformIntegration {
   readonly adapterKey = 'ctrader';
+  isPlatformConnected = false;
 
   /**
    * Provider definition.
@@ -64,6 +65,21 @@ export class CTraderPlatformIntegration implements IPlatformIntegration {
   async connect(
     command: PlatformIntegrationConnectionCommand,
   ): Promise<PlatformIntegrationConnectionResult> {
+
+
+    // TODO: Implement the cTrader platform connection workflow.
+    // https://docs.ctrader.com/integration-guide/api-integration/authentication-oauth
+
+    if(this.isPlatformConnected) {
+      throw new Error('cTrader platform is already connected.');
+    }
+    this.isPlatformConnected = true;
+
+
+
+
+
+
     const event = createPlatformIntegrationEvent({
       type: PlatformIntegrationEventType.CONNECTION_STARTED,
       userId: command.connection.user_id,
@@ -91,6 +107,8 @@ export class CTraderPlatformIntegration implements IPlatformIntegration {
     };
   }
 
+
+
   /**
    * Disconnect from the cTrader platform.
    * @param command - The command to disconnect from the cTrader platform.
@@ -99,6 +117,11 @@ export class CTraderPlatformIntegration implements IPlatformIntegration {
   async disconnect(
     command: PlatformIntegrationConnectionCommand,
   ): Promise<PlatformIntegrationConnectionResult> {
+
+    // TODO: Implement the cTrader platform disconnection workflow.
+    // https://docs.ctrader.com/integration-guide/api-integration/authentication-oauth
+
+
     const now = new Date();
     const event = createPlatformIntegrationEvent({
       type: PlatformIntegrationEventType.CONNECTION_DISCONNECTED,
@@ -134,6 +157,8 @@ export class CTraderPlatformIntegration implements IPlatformIntegration {
   async receiveEvent(
     command: PlatformIntegrationReceivedEventCommand,
   ): Promise<PlatformIntegrationReceivedEventResult> {
+
+
     const event = createPlatformIntegrationEvent({
       type: PlatformIntegrationEventType.PLATFORM_EVENT_RECEIVED,
       userId: command.connection.user_id,

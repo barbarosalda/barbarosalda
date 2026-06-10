@@ -49,6 +49,7 @@ export type PlatformIntegrationReceivedEventResult = {
 export interface IPlatformIntegration {
   readonly adapterKey: string;
   readonly providerDefinition: PlatformIntegrationProviderDefinition;
+  isPlatformConnected: boolean;
 
   connect(
     command: PlatformIntegrationConnectionCommand,
