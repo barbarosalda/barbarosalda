@@ -70,6 +70,12 @@ export class PropFirmPrismaRepositoryAdapter implements IPropFirmRepository {
             stages: {
               orderBy: { sequence_order: 'asc' },
             },
+            supported_platforms: {
+              include: {
+                integration_provider: true,
+              },
+              orderBy: { integration_provider_id: 'asc' },
+            },
           },
           orderBy: { name: 'asc' },
         },

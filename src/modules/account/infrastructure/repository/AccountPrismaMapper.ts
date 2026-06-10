@@ -1,8 +1,10 @@
 import {
   Prisma,
   type Prisma as PrismaNamespace,
+  type IntegrationProvider as PrismaIntegrationProvider,
   type PropFirm as PrismaPropFirm,
   type PropFirmProgram as PrismaPropFirmProgram,
+  type PropFirmProgramSupportedPlatform as PrismaPropFirmProgramSupportedPlatform,
   type PropFirmProgramStage as PrismaPropFirmProgramStage,
   type TradingAccount as PrismaTradingAccount,
   type TradingAccountSnapshot as PrismaTradingAccountSnapshot,
@@ -31,6 +33,10 @@ import {
 } from '@modules/account/domain/PropFirmProgram/PropFirmProgram';
 
 import {
+  PropFirmProgramSupportedPlatformWithProviderSchema,
+  type PropFirmProgramSupportedPlatformWithProvider,
+} from '@modules/account/domain/PropFirmProgram/PropFirmProgramSupportedPlatform';
+import {
   CreatePropFirmProgramStageSchema,
   PropFirmProgramStageSchema,
   type CreatePropFirmProgramStageInput,
@@ -54,16 +60,27 @@ import {
   type CreateTradingAccountSnapshotInput,
   type TradingAccountSnapshot,
 } from '@modules/account/domain/TradingAccountSnapshot/TradingAccountSnapshot';
+import { toDomainIntegrationProvider } from '@modules/integration/infrastructure/repository/IntegrationPrismaMapper';
 
 export type PrismaPropFirmWithProgramsAndStages = PrismaNamespace.PropFirmGetPayload<{
   include: {
     programs: {
       include: {
         stages: true;
+        supported_platforms: {
+          include: {
+            integration_provider: true;
+          };
+        };
       };
     };
   };
 }>;
+
+export type PrismaPropFirmProgramSupportedPlatformWithProvider =
+  PrismaPropFirmProgramSupportedPlatform & {
+    integration_provider: PrismaIntegrationProvider;
+  };
 
 /**
  * Converts a Prisma trading account to a domain trading account.
@@ -230,6 +247,9 @@ export function toDomainPropFirmWithProgramsAndStages(
     programs: row.programs.map((program) => ({
       ...toDomainPropFirmProgram(program),
       stages: program.stages.map(toDomainPropFirmProgramStage),
+      supported_platforms: program.supported_platforms.map(
+        toDomainPropFirmProgramSupportedPlatformWithProvider,
+      ),
     })),
   });
 }
@@ -289,6 +309,23 @@ export function toDomainPropFirmProgram(row: PrismaPropFirmProgram): PropFirmPro
     status: row.status,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+  });
+}
+
+/**
+ * Converts a Prisma prop firm program supported platform to the domain relation.
+ * @param row - The Prisma prop firm program supported platform with provider.
+ * @returns The domain prop firm program supported platform.
+ */
+export function toDomainPropFirmProgramSupportedPlatformWithProvider(
+  row: PrismaPropFirmProgramSupportedPlatformWithProvider,
+): PropFirmProgramSupportedPlatformWithProvider {
+  return PropFirmProgramSupportedPlatformWithProviderSchema.parse({
+    prop_firm_program_id: row.prop_firm_program_id,
+    integration_provider_id: row.integration_provider_id,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    integration_provider: toDomainIntegrationProvider(row.integration_provider),
   });
 }
 

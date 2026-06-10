@@ -4,6 +4,7 @@ import { AuditSnapshotSchema } from '@src/shared/domain/Audit/AuditSnapshot';
 import { RecordStatus } from '@src/shared/domain/Record/RecordStatus';
 import { PropFirmType } from '@src/modules/account/domain/PropFirm/PropFirmType';
 import { PropFirmProgramSchema } from '@src/modules/account/domain/PropFirmProgram/PropFirmProgram';
+import { PropFirmProgramSupportedPlatformWithProviderSchema } from '@src/modules/account/domain/PropFirmProgram/PropFirmProgramSupportedPlatform';
 import { PropFirmProgramStageSchema } from '@src/modules/account/domain/PropFirmProgramStage/PropFirmProgramStage';
 
 
@@ -22,6 +23,7 @@ export type PropFirm = z.infer<typeof PropFirmSchema>;
 
 export const PropFirmProgramWithStagesSchema = PropFirmProgramSchema.extend({
     stages: z.array(PropFirmProgramStageSchema),
+    supported_platforms: z.array(PropFirmProgramSupportedPlatformWithProviderSchema),
 });
 
 export type PropFirmProgramWithStages = z.infer<typeof PropFirmProgramWithStagesSchema>;

@@ -109,10 +109,11 @@ model PropFirmProgram {
   created_at            DateTime           @default(now())
   updated_at            DateTime           @updatedAt
 
-  prop_firm        PropFirm               @relation(fields: [prop_firm_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  stages           PropFirmProgramStage[]
-  rule_sets        RuleSet[]
-  trading_accounts TradingAccount[]
+  prop_firm           PropFirm                              @relation(fields: [prop_firm_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  stages              PropFirmProgramStage[]
+  supported_platforms PropFirmProgramSupportedPlatform[]
+  rule_sets           RuleSet[]
+  trading_accounts    TradingAccount[]
 
   @@index([prop_firm_id])
   @@index([market_type])
@@ -135,6 +136,20 @@ model PropFirmProgramStage {
   @@unique([program_id, sequence_order])
   @@index([program_id])
   @@map("prop_firm_program_stages")
+}
+
+model PropFirmProgramSupportedPlatform {
+  prop_firm_program_id    String   @db.Text
+  integration_provider_id String   @db.Text
+  created_at              DateTime @default(now())
+  updated_at              DateTime @updatedAt
+
+  prop_firm_program   PropFirmProgram    @relation(fields: [prop_firm_program_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "pfp_supported_platforms_program_id_fkey")
+  integration_provider IntegrationProvider @relation(fields: [integration_provider_id], references: [id], onDelete: Restrict, onUpdate: Cascade, map: "pfp_supported_platforms_provider_id_fkey")
+
+  @@id([prop_firm_program_id, integration_provider_id], map: "pfp_supported_platforms_pkey")
+  @@index([integration_provider_id], map: "pfp_supported_platforms_provider_id_idx")
+  @@map("prop_firm_program_supported_platforms")
 }
 
 model RuleGroup {
@@ -310,7 +325,8 @@ model IntegrationProvider {
   created_at      DateTime                  @default(now())
   updated_at      DateTime                  @updatedAt
 
-  connections IntegrationConnection[]
+  connections                  IntegrationConnection[]
+  supported_prop_firm_programs PropFirmProgramSupportedPlatform[]
 
   @@index([provider_type])
   @@index([status])

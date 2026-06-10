@@ -390,6 +390,7 @@ export const ModelName = {
   PropFirm: 'PropFirm',
   PropFirmProgram: 'PropFirmProgram',
   PropFirmProgramStage: 'PropFirmProgramStage',
+  PropFirmProgramSupportedPlatform: 'PropFirmProgramSupportedPlatform',
   RuleGroup: 'RuleGroup',
   RuleSet: 'RuleSet',
   Rule: 'Rule',
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "userPreference" | "event" | "auditLog" | "propFirm" | "propFirmProgram" | "propFirmProgramStage" | "ruleGroup" | "ruleSet" | "rule" | "tradingAccount" | "tradingAccountSnapshot" | "ruleState" | "integrationProvider" | "integrationConnection"
+    modelProps: "userPreference" | "event" | "auditLog" | "propFirm" | "propFirmProgram" | "propFirmProgramStage" | "propFirmProgramSupportedPlatform" | "ruleGroup" | "ruleSet" | "rule" | "tradingAccount" | "tradingAccountSnapshot" | "ruleState" | "integrationProvider" | "integrationConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -858,6 +859,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PropFirmProgramStageCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PropFirmProgramStageCountAggregateOutputType> | number
+        }
+      }
+    }
+    PropFirmProgramSupportedPlatform: {
+      payload: Prisma.$PropFirmProgramSupportedPlatformPayload<ExtArgs>
+      fields: Prisma.PropFirmProgramSupportedPlatformFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PropFirmProgramSupportedPlatformFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PropFirmProgramSupportedPlatformFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>
+        }
+        findFirst: {
+          args: Prisma.PropFirmProgramSupportedPlatformFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PropFirmProgramSupportedPlatformFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>
+        }
+        findMany: {
+          args: Prisma.PropFirmProgramSupportedPlatformFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>[]
+        }
+        create: {
+          args: Prisma.PropFirmProgramSupportedPlatformCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>
+        }
+        createMany: {
+          args: Prisma.PropFirmProgramSupportedPlatformCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PropFirmProgramSupportedPlatformCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>[]
+        }
+        delete: {
+          args: Prisma.PropFirmProgramSupportedPlatformDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>
+        }
+        update: {
+          args: Prisma.PropFirmProgramSupportedPlatformUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>
+        }
+        deleteMany: {
+          args: Prisma.PropFirmProgramSupportedPlatformDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PropFirmProgramSupportedPlatformUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PropFirmProgramSupportedPlatformUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>[]
+        }
+        upsert: {
+          args: Prisma.PropFirmProgramSupportedPlatformUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PropFirmProgramSupportedPlatformPayload>
+        }
+        aggregate: {
+          args: Prisma.PropFirmProgramSupportedPlatformAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePropFirmProgramSupportedPlatform>
+        }
+        groupBy: {
+          args: Prisma.PropFirmProgramSupportedPlatformGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PropFirmProgramSupportedPlatformGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PropFirmProgramSupportedPlatformCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PropFirmProgramSupportedPlatformCountAggregateOutputType> | number
         }
       }
     }
@@ -1597,6 +1672,16 @@ export const PropFirmProgramStageScalarFieldEnum = {
 export type PropFirmProgramStageScalarFieldEnum = (typeof PropFirmProgramStageScalarFieldEnum)[keyof typeof PropFirmProgramStageScalarFieldEnum]
 
 
+export const PropFirmProgramSupportedPlatformScalarFieldEnum = {
+  prop_firm_program_id: 'prop_firm_program_id',
+  integration_provider_id: 'integration_provider_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PropFirmProgramSupportedPlatformScalarFieldEnum = (typeof PropFirmProgramSupportedPlatformScalarFieldEnum)[keyof typeof PropFirmProgramSupportedPlatformScalarFieldEnum]
+
+
 export const RuleGroupScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -2267,6 +2352,7 @@ export type GlobalOmitConfig = {
   propFirm?: Prisma.PropFirmOmit
   propFirmProgram?: Prisma.PropFirmProgramOmit
   propFirmProgramStage?: Prisma.PropFirmProgramStageOmit
+  propFirmProgramSupportedPlatform?: Prisma.PropFirmProgramSupportedPlatformOmit
   ruleGroup?: Prisma.RuleGroupOmit
   ruleSet?: Prisma.RuleSetOmit
   rule?: Prisma.RuleOmit

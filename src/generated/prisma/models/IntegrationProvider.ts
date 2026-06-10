@@ -247,6 +247,7 @@ export type IntegrationProviderWhereInput = {
   created_at?: Prisma.DateTimeFilter<"IntegrationProvider"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"IntegrationProvider"> | Date | string
   connections?: Prisma.IntegrationConnectionListRelationFilter
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformListRelationFilter
 }
 
 export type IntegrationProviderOrderByWithRelationInput = {
@@ -264,6 +265,7 @@ export type IntegrationProviderOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   connections?: Prisma.IntegrationConnectionOrderByRelationAggregateInput
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformOrderByRelationAggregateInput
 }
 
 export type IntegrationProviderWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +286,7 @@ export type IntegrationProviderWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"IntegrationProvider"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"IntegrationProvider"> | Date | string
   connections?: Prisma.IntegrationConnectionListRelationFilter
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformListRelationFilter
 }, "id" | "code">
 
 export type IntegrationProviderOrderByWithAggregationInput = {
@@ -339,6 +342,7 @@ export type IntegrationProviderCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   connections?: Prisma.IntegrationConnectionCreateNestedManyWithoutProviderInput
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutIntegration_providerInput
 }
 
 export type IntegrationProviderUncheckedCreateInput = {
@@ -356,6 +360,7 @@ export type IntegrationProviderUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   connections?: Prisma.IntegrationConnectionUncheckedCreateNestedManyWithoutProviderInput
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutIntegration_providerInput
 }
 
 export type IntegrationProviderUpdateInput = {
@@ -373,6 +378,7 @@ export type IntegrationProviderUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   connections?: Prisma.IntegrationConnectionUpdateManyWithoutProviderNestedInput
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutIntegration_providerNestedInput
 }
 
 export type IntegrationProviderUncheckedUpdateInput = {
@@ -390,6 +396,7 @@ export type IntegrationProviderUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   connections?: Prisma.IntegrationConnectionUncheckedUpdateManyWithoutProviderNestedInput
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutIntegration_providerNestedInput
 }
 
 export type IntegrationProviderCreateManyInput = {
@@ -440,6 +447,11 @@ export type IntegrationProviderUncheckedUpdateManyInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type IntegrationProviderScalarRelationFilter = {
+  is?: Prisma.IntegrationProviderWhereInput
+  isNot?: Prisma.IntegrationProviderWhereInput
+}
+
 export type IntegrationProviderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
@@ -488,9 +500,18 @@ export type IntegrationProviderMinOrderByAggregateInput = {
   updated_at?: Prisma.SortOrder
 }
 
-export type IntegrationProviderScalarRelationFilter = {
-  is?: Prisma.IntegrationProviderWhereInput
-  isNot?: Prisma.IntegrationProviderWhereInput
+export type IntegrationProviderCreateNestedOneWithoutSupported_prop_firm_programsInput = {
+  create?: Prisma.XOR<Prisma.IntegrationProviderCreateWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUncheckedCreateWithoutSupported_prop_firm_programsInput>
+  connectOrCreate?: Prisma.IntegrationProviderCreateOrConnectWithoutSupported_prop_firm_programsInput
+  connect?: Prisma.IntegrationProviderWhereUniqueInput
+}
+
+export type IntegrationProviderUpdateOneRequiredWithoutSupported_prop_firm_programsNestedInput = {
+  create?: Prisma.XOR<Prisma.IntegrationProviderCreateWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUncheckedCreateWithoutSupported_prop_firm_programsInput>
+  connectOrCreate?: Prisma.IntegrationProviderCreateOrConnectWithoutSupported_prop_firm_programsInput
+  upsert?: Prisma.IntegrationProviderUpsertWithoutSupported_prop_firm_programsInput
+  connect?: Prisma.IntegrationProviderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.IntegrationProviderUpdateToOneWithWhereWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUpdateWithoutSupported_prop_firm_programsInput>, Prisma.IntegrationProviderUncheckedUpdateWithoutSupported_prop_firm_programsInput>
 }
 
 export type EnumIntegrationProviderTypeFieldUpdateOperationsInput = {
@@ -519,6 +540,90 @@ export type IntegrationProviderUpdateOneRequiredWithoutConnectionsNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.IntegrationProviderUpdateToOneWithWhereWithoutConnectionsInput, Prisma.IntegrationProviderUpdateWithoutConnectionsInput>, Prisma.IntegrationProviderUncheckedUpdateWithoutConnectionsInput>
 }
 
+export type IntegrationProviderCreateWithoutSupported_prop_firm_programsInput = {
+  id: string
+  code: string
+  name: string
+  description?: string | null
+  provider_type?: $Enums.IntegrationProviderType
+  auth_type: $Enums.IntegrationAuthType
+  connection_mode: $Enums.IntegrationConnectionMode
+  adapter_key: string
+  website_url?: string | null
+  logo_url?: string | null
+  status?: $Enums.RecordStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  connections?: Prisma.IntegrationConnectionCreateNestedManyWithoutProviderInput
+}
+
+export type IntegrationProviderUncheckedCreateWithoutSupported_prop_firm_programsInput = {
+  id: string
+  code: string
+  name: string
+  description?: string | null
+  provider_type?: $Enums.IntegrationProviderType
+  auth_type: $Enums.IntegrationAuthType
+  connection_mode: $Enums.IntegrationConnectionMode
+  adapter_key: string
+  website_url?: string | null
+  logo_url?: string | null
+  status?: $Enums.RecordStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  connections?: Prisma.IntegrationConnectionUncheckedCreateNestedManyWithoutProviderInput
+}
+
+export type IntegrationProviderCreateOrConnectWithoutSupported_prop_firm_programsInput = {
+  where: Prisma.IntegrationProviderWhereUniqueInput
+  create: Prisma.XOR<Prisma.IntegrationProviderCreateWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUncheckedCreateWithoutSupported_prop_firm_programsInput>
+}
+
+export type IntegrationProviderUpsertWithoutSupported_prop_firm_programsInput = {
+  update: Prisma.XOR<Prisma.IntegrationProviderUpdateWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUncheckedUpdateWithoutSupported_prop_firm_programsInput>
+  create: Prisma.XOR<Prisma.IntegrationProviderCreateWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUncheckedCreateWithoutSupported_prop_firm_programsInput>
+  where?: Prisma.IntegrationProviderWhereInput
+}
+
+export type IntegrationProviderUpdateToOneWithWhereWithoutSupported_prop_firm_programsInput = {
+  where?: Prisma.IntegrationProviderWhereInput
+  data: Prisma.XOR<Prisma.IntegrationProviderUpdateWithoutSupported_prop_firm_programsInput, Prisma.IntegrationProviderUncheckedUpdateWithoutSupported_prop_firm_programsInput>
+}
+
+export type IntegrationProviderUpdateWithoutSupported_prop_firm_programsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider_type?: Prisma.EnumIntegrationProviderTypeFieldUpdateOperationsInput | $Enums.IntegrationProviderType
+  auth_type?: Prisma.EnumIntegrationAuthTypeFieldUpdateOperationsInput | $Enums.IntegrationAuthType
+  connection_mode?: Prisma.EnumIntegrationConnectionModeFieldUpdateOperationsInput | $Enums.IntegrationConnectionMode
+  adapter_key?: Prisma.StringFieldUpdateOperationsInput | string
+  website_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  connections?: Prisma.IntegrationConnectionUpdateManyWithoutProviderNestedInput
+}
+
+export type IntegrationProviderUncheckedUpdateWithoutSupported_prop_firm_programsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider_type?: Prisma.EnumIntegrationProviderTypeFieldUpdateOperationsInput | $Enums.IntegrationProviderType
+  auth_type?: Prisma.EnumIntegrationAuthTypeFieldUpdateOperationsInput | $Enums.IntegrationAuthType
+  connection_mode?: Prisma.EnumIntegrationConnectionModeFieldUpdateOperationsInput | $Enums.IntegrationConnectionMode
+  adapter_key?: Prisma.StringFieldUpdateOperationsInput | string
+  website_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  connections?: Prisma.IntegrationConnectionUncheckedUpdateManyWithoutProviderNestedInput
+}
+
 export type IntegrationProviderCreateWithoutConnectionsInput = {
   id: string
   code: string
@@ -533,6 +638,7 @@ export type IntegrationProviderCreateWithoutConnectionsInput = {
   status?: $Enums.RecordStatus
   created_at?: Date | string
   updated_at?: Date | string
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutIntegration_providerInput
 }
 
 export type IntegrationProviderUncheckedCreateWithoutConnectionsInput = {
@@ -549,6 +655,7 @@ export type IntegrationProviderUncheckedCreateWithoutConnectionsInput = {
   status?: $Enums.RecordStatus
   created_at?: Date | string
   updated_at?: Date | string
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutIntegration_providerInput
 }
 
 export type IntegrationProviderCreateOrConnectWithoutConnectionsInput = {
@@ -581,6 +688,7 @@ export type IntegrationProviderUpdateWithoutConnectionsInput = {
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutIntegration_providerNestedInput
 }
 
 export type IntegrationProviderUncheckedUpdateWithoutConnectionsInput = {
@@ -597,6 +705,7 @@ export type IntegrationProviderUncheckedUpdateWithoutConnectionsInput = {
   status?: Prisma.EnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supported_prop_firm_programs?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutIntegration_providerNestedInput
 }
 
 
@@ -606,10 +715,12 @@ export type IntegrationProviderUncheckedUpdateWithoutConnectionsInput = {
 
 export type IntegrationProviderCountOutputType = {
   connections: number
+  supported_prop_firm_programs: number
 }
 
 export type IntegrationProviderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   connections?: boolean | IntegrationProviderCountOutputTypeCountConnectionsArgs
+  supported_prop_firm_programs?: boolean | IntegrationProviderCountOutputTypeCountSupported_prop_firm_programsArgs
 }
 
 /**
@@ -629,6 +740,13 @@ export type IntegrationProviderCountOutputTypeCountConnectionsArgs<ExtArgs exten
   where?: Prisma.IntegrationConnectionWhereInput
 }
 
+/**
+ * IntegrationProviderCountOutputType without action
+ */
+export type IntegrationProviderCountOutputTypeCountSupported_prop_firm_programsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PropFirmProgramSupportedPlatformWhereInput
+}
+
 
 export type IntegrationProviderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -645,6 +763,7 @@ export type IntegrationProviderSelect<ExtArgs extends runtime.Types.Extensions.I
   created_at?: boolean
   updated_at?: boolean
   connections?: boolean | Prisma.IntegrationProvider$connectionsArgs<ExtArgs>
+  supported_prop_firm_programs?: boolean | Prisma.IntegrationProvider$supported_prop_firm_programsArgs<ExtArgs>
   _count?: boolean | Prisma.IntegrationProviderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["integrationProvider"]>
 
@@ -699,6 +818,7 @@ export type IntegrationProviderSelectScalar = {
 export type IntegrationProviderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "provider_type" | "auth_type" | "connection_mode" | "adapter_key" | "website_url" | "logo_url" | "status" | "created_at" | "updated_at", ExtArgs["result"]["integrationProvider"]>
 export type IntegrationProviderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   connections?: boolean | Prisma.IntegrationProvider$connectionsArgs<ExtArgs>
+  supported_prop_firm_programs?: boolean | Prisma.IntegrationProvider$supported_prop_firm_programsArgs<ExtArgs>
   _count?: boolean | Prisma.IntegrationProviderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type IntegrationProviderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -708,6 +828,7 @@ export type $IntegrationProviderPayload<ExtArgs extends runtime.Types.Extensions
   name: "IntegrationProvider"
   objects: {
     connections: Prisma.$IntegrationConnectionPayload<ExtArgs>[]
+    supported_prop_firm_programs: Prisma.$PropFirmProgramSupportedPlatformPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1118,6 +1239,7 @@ readonly fields: IntegrationProviderFieldRefs;
 export interface Prisma__IntegrationProviderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   connections<T extends Prisma.IntegrationProvider$connectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntegrationProvider$connectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IntegrationConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supported_prop_firm_programs<T extends Prisma.IntegrationProvider$supported_prop_firm_programsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.IntegrationProvider$supported_prop_firm_programsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropFirmProgramSupportedPlatformPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1574,6 +1696,30 @@ export type IntegrationProvider$connectionsArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.IntegrationConnectionScalarFieldEnum | Prisma.IntegrationConnectionScalarFieldEnum[]
+}
+
+/**
+ * IntegrationProvider.supported_prop_firm_programs
+ */
+export type IntegrationProvider$supported_prop_firm_programsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PropFirmProgramSupportedPlatform
+   */
+  select?: Prisma.PropFirmProgramSupportedPlatformSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PropFirmProgramSupportedPlatform
+   */
+  omit?: Prisma.PropFirmProgramSupportedPlatformOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PropFirmProgramSupportedPlatformInclude<ExtArgs> | null
+  where?: Prisma.PropFirmProgramSupportedPlatformWhereInput
+  orderBy?: Prisma.PropFirmProgramSupportedPlatformOrderByWithRelationInput | Prisma.PropFirmProgramSupportedPlatformOrderByWithRelationInput[]
+  cursor?: Prisma.PropFirmProgramSupportedPlatformWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PropFirmProgramSupportedPlatformScalarFieldEnum | Prisma.PropFirmProgramSupportedPlatformScalarFieldEnum[]
 }
 
 /**

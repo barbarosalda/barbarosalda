@@ -250,6 +250,7 @@ export type PropFirmProgramWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"PropFirmProgram"> | Date | string
   prop_firm?: Prisma.XOR<Prisma.PropFirmScalarRelationFilter, Prisma.PropFirmWhereInput>
   stages?: Prisma.PropFirmProgramStageListRelationFilter
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformListRelationFilter
   rule_sets?: Prisma.RuleSetListRelationFilter
   trading_accounts?: Prisma.TradingAccountListRelationFilter
 }
@@ -266,6 +267,7 @@ export type PropFirmProgramOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   prop_firm?: Prisma.PropFirmOrderByWithRelationInput
   stages?: Prisma.PropFirmProgramStageOrderByRelationAggregateInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformOrderByRelationAggregateInput
   rule_sets?: Prisma.RuleSetOrderByRelationAggregateInput
   trading_accounts?: Prisma.TradingAccountOrderByRelationAggregateInput
 }
@@ -285,6 +287,7 @@ export type PropFirmProgramWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"PropFirmProgram"> | Date | string
   prop_firm?: Prisma.XOR<Prisma.PropFirmScalarRelationFilter, Prisma.PropFirmWhereInput>
   stages?: Prisma.PropFirmProgramStageListRelationFilter
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformListRelationFilter
   rule_sets?: Prisma.RuleSetListRelationFilter
   trading_accounts?: Prisma.TradingAccountListRelationFilter
 }, "id">
@@ -332,6 +335,7 @@ export type PropFirmProgramCreateInput = {
   updated_at?: Date | string
   prop_firm: Prisma.PropFirmCreateNestedOneWithoutProgramsInput
   stages?: Prisma.PropFirmProgramStageCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountCreateNestedManyWithoutProp_firm_programInput
 }
@@ -347,6 +351,7 @@ export type PropFirmProgramUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetUncheckedCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountUncheckedCreateNestedManyWithoutProp_firm_programInput
 }
@@ -362,6 +367,7 @@ export type PropFirmProgramUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prop_firm?: Prisma.PropFirmUpdateOneRequiredWithoutProgramsNestedInput
   stages?: Prisma.PropFirmProgramStageUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUpdateManyWithoutProp_firm_programNestedInput
 }
@@ -377,6 +383,7 @@ export type PropFirmProgramUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUncheckedUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUncheckedUpdateManyWithoutProp_firm_programNestedInput
 }
@@ -548,6 +555,20 @@ export type PropFirmProgramUpdateOneRequiredWithoutStagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PropFirmProgramUpdateToOneWithWhereWithoutStagesInput, Prisma.PropFirmProgramUpdateWithoutStagesInput>, Prisma.PropFirmProgramUncheckedUpdateWithoutStagesInput>
 }
 
+export type PropFirmProgramCreateNestedOneWithoutSupported_platformsInput = {
+  create?: Prisma.XOR<Prisma.PropFirmProgramCreateWithoutSupported_platformsInput, Prisma.PropFirmProgramUncheckedCreateWithoutSupported_platformsInput>
+  connectOrCreate?: Prisma.PropFirmProgramCreateOrConnectWithoutSupported_platformsInput
+  connect?: Prisma.PropFirmProgramWhereUniqueInput
+}
+
+export type PropFirmProgramUpdateOneRequiredWithoutSupported_platformsNestedInput = {
+  create?: Prisma.XOR<Prisma.PropFirmProgramCreateWithoutSupported_platformsInput, Prisma.PropFirmProgramUncheckedCreateWithoutSupported_platformsInput>
+  connectOrCreate?: Prisma.PropFirmProgramCreateOrConnectWithoutSupported_platformsInput
+  upsert?: Prisma.PropFirmProgramUpsertWithoutSupported_platformsInput
+  connect?: Prisma.PropFirmProgramWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PropFirmProgramUpdateToOneWithWhereWithoutSupported_platformsInput, Prisma.PropFirmProgramUpdateWithoutSupported_platformsInput>, Prisma.PropFirmProgramUncheckedUpdateWithoutSupported_platformsInput>
+}
+
 export type PropFirmProgramCreateNestedOneWithoutRule_setsInput = {
   create?: Prisma.XOR<Prisma.PropFirmProgramCreateWithoutRule_setsInput, Prisma.PropFirmProgramUncheckedCreateWithoutRule_setsInput>
   connectOrCreate?: Prisma.PropFirmProgramCreateOrConnectWithoutRule_setsInput
@@ -590,6 +611,7 @@ export type PropFirmProgramCreateWithoutProp_firmInput = {
   created_at?: Date | string
   updated_at?: Date | string
   stages?: Prisma.PropFirmProgramStageCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountCreateNestedManyWithoutProp_firm_programInput
 }
@@ -604,6 +626,7 @@ export type PropFirmProgramUncheckedCreateWithoutProp_firmInput = {
   created_at?: Date | string
   updated_at?: Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetUncheckedCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountUncheckedCreateNestedManyWithoutProp_firm_programInput
 }
@@ -659,6 +682,7 @@ export type PropFirmProgramCreateWithoutStagesInput = {
   created_at?: Date | string
   updated_at?: Date | string
   prop_firm: Prisma.PropFirmCreateNestedOneWithoutProgramsInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountCreateNestedManyWithoutProp_firm_programInput
 }
@@ -673,6 +697,7 @@ export type PropFirmProgramUncheckedCreateWithoutStagesInput = {
   status?: $Enums.RecordStatus | null
   created_at?: Date | string
   updated_at?: Date | string
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetUncheckedCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountUncheckedCreateNestedManyWithoutProp_firm_programInput
 }
@@ -703,6 +728,7 @@ export type PropFirmProgramUpdateWithoutStagesInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prop_firm?: Prisma.PropFirmUpdateOneRequiredWithoutProgramsNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUpdateManyWithoutProp_firm_programNestedInput
 }
@@ -717,6 +743,83 @@ export type PropFirmProgramUncheckedUpdateWithoutStagesInput = {
   status?: Prisma.NullableEnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutProp_firm_programNestedInput
+  rule_sets?: Prisma.RuleSetUncheckedUpdateManyWithoutProp_firm_programNestedInput
+  trading_accounts?: Prisma.TradingAccountUncheckedUpdateManyWithoutProp_firm_programNestedInput
+}
+
+export type PropFirmProgramCreateWithoutSupported_platformsInput = {
+  id: string
+  name: string
+  slug?: string | null
+  initial_nominal_value?: number | null
+  market_type?: $Enums.TradingMarketType | null
+  status?: $Enums.RecordStatus | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  prop_firm: Prisma.PropFirmCreateNestedOneWithoutProgramsInput
+  stages?: Prisma.PropFirmProgramStageCreateNestedManyWithoutProgramInput
+  rule_sets?: Prisma.RuleSetCreateNestedManyWithoutProp_firm_programInput
+  trading_accounts?: Prisma.TradingAccountCreateNestedManyWithoutProp_firm_programInput
+}
+
+export type PropFirmProgramUncheckedCreateWithoutSupported_platformsInput = {
+  id: string
+  prop_firm_id: string
+  name: string
+  slug?: string | null
+  initial_nominal_value?: number | null
+  market_type?: $Enums.TradingMarketType | null
+  status?: $Enums.RecordStatus | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  stages?: Prisma.PropFirmProgramStageUncheckedCreateNestedManyWithoutProgramInput
+  rule_sets?: Prisma.RuleSetUncheckedCreateNestedManyWithoutProp_firm_programInput
+  trading_accounts?: Prisma.TradingAccountUncheckedCreateNestedManyWithoutProp_firm_programInput
+}
+
+export type PropFirmProgramCreateOrConnectWithoutSupported_platformsInput = {
+  where: Prisma.PropFirmProgramWhereUniqueInput
+  create: Prisma.XOR<Prisma.PropFirmProgramCreateWithoutSupported_platformsInput, Prisma.PropFirmProgramUncheckedCreateWithoutSupported_platformsInput>
+}
+
+export type PropFirmProgramUpsertWithoutSupported_platformsInput = {
+  update: Prisma.XOR<Prisma.PropFirmProgramUpdateWithoutSupported_platformsInput, Prisma.PropFirmProgramUncheckedUpdateWithoutSupported_platformsInput>
+  create: Prisma.XOR<Prisma.PropFirmProgramCreateWithoutSupported_platformsInput, Prisma.PropFirmProgramUncheckedCreateWithoutSupported_platformsInput>
+  where?: Prisma.PropFirmProgramWhereInput
+}
+
+export type PropFirmProgramUpdateToOneWithWhereWithoutSupported_platformsInput = {
+  where?: Prisma.PropFirmProgramWhereInput
+  data: Prisma.XOR<Prisma.PropFirmProgramUpdateWithoutSupported_platformsInput, Prisma.PropFirmProgramUncheckedUpdateWithoutSupported_platformsInput>
+}
+
+export type PropFirmProgramUpdateWithoutSupported_platformsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  initial_nominal_value?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  market_type?: Prisma.NullableEnumTradingMarketTypeFieldUpdateOperationsInput | $Enums.TradingMarketType | null
+  status?: Prisma.NullableEnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  prop_firm?: Prisma.PropFirmUpdateOneRequiredWithoutProgramsNestedInput
+  stages?: Prisma.PropFirmProgramStageUpdateManyWithoutProgramNestedInput
+  rule_sets?: Prisma.RuleSetUpdateManyWithoutProp_firm_programNestedInput
+  trading_accounts?: Prisma.TradingAccountUpdateManyWithoutProp_firm_programNestedInput
+}
+
+export type PropFirmProgramUncheckedUpdateWithoutSupported_platformsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  prop_firm_id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  initial_nominal_value?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  market_type?: Prisma.NullableEnumTradingMarketTypeFieldUpdateOperationsInput | $Enums.TradingMarketType | null
+  status?: Prisma.NullableEnumRecordStatusFieldUpdateOperationsInput | $Enums.RecordStatus | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stages?: Prisma.PropFirmProgramStageUncheckedUpdateManyWithoutProgramNestedInput
   rule_sets?: Prisma.RuleSetUncheckedUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUncheckedUpdateManyWithoutProp_firm_programNestedInput
 }
@@ -732,6 +835,7 @@ export type PropFirmProgramCreateWithoutRule_setsInput = {
   updated_at?: Date | string
   prop_firm: Prisma.PropFirmCreateNestedOneWithoutProgramsInput
   stages?: Prisma.PropFirmProgramStageCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountCreateNestedManyWithoutProp_firm_programInput
 }
 
@@ -746,6 +850,7 @@ export type PropFirmProgramUncheckedCreateWithoutRule_setsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutProp_firm_programInput
   trading_accounts?: Prisma.TradingAccountUncheckedCreateNestedManyWithoutProp_firm_programInput
 }
 
@@ -776,6 +881,7 @@ export type PropFirmProgramUpdateWithoutRule_setsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prop_firm?: Prisma.PropFirmUpdateOneRequiredWithoutProgramsNestedInput
   stages?: Prisma.PropFirmProgramStageUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUpdateManyWithoutProp_firm_programNestedInput
 }
 
@@ -790,6 +896,7 @@ export type PropFirmProgramUncheckedUpdateWithoutRule_setsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUncheckedUpdateManyWithoutProp_firm_programNestedInput
 }
 
@@ -804,6 +911,7 @@ export type PropFirmProgramCreateWithoutTrading_accountsInput = {
   updated_at?: Date | string
   prop_firm: Prisma.PropFirmCreateNestedOneWithoutProgramsInput
   stages?: Prisma.PropFirmProgramStageCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetCreateNestedManyWithoutProp_firm_programInput
 }
 
@@ -818,6 +926,7 @@ export type PropFirmProgramUncheckedCreateWithoutTrading_accountsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedCreateNestedManyWithoutProgramInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedCreateNestedManyWithoutProp_firm_programInput
   rule_sets?: Prisma.RuleSetUncheckedCreateNestedManyWithoutProp_firm_programInput
 }
 
@@ -848,6 +957,7 @@ export type PropFirmProgramUpdateWithoutTrading_accountsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prop_firm?: Prisma.PropFirmUpdateOneRequiredWithoutProgramsNestedInput
   stages?: Prisma.PropFirmProgramStageUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUpdateManyWithoutProp_firm_programNestedInput
 }
 
@@ -862,6 +972,7 @@ export type PropFirmProgramUncheckedUpdateWithoutTrading_accountsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUncheckedUpdateManyWithoutProp_firm_programNestedInput
 }
 
@@ -886,6 +997,7 @@ export type PropFirmProgramUpdateWithoutProp_firmInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stages?: Prisma.PropFirmProgramStageUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUpdateManyWithoutProp_firm_programNestedInput
 }
@@ -900,6 +1012,7 @@ export type PropFirmProgramUncheckedUpdateWithoutProp_firmInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stages?: Prisma.PropFirmProgramStageUncheckedUpdateManyWithoutProgramNestedInput
+  supported_platforms?: Prisma.PropFirmProgramSupportedPlatformUncheckedUpdateManyWithoutProp_firm_programNestedInput
   rule_sets?: Prisma.RuleSetUncheckedUpdateManyWithoutProp_firm_programNestedInput
   trading_accounts?: Prisma.TradingAccountUncheckedUpdateManyWithoutProp_firm_programNestedInput
 }
@@ -922,12 +1035,14 @@ export type PropFirmProgramUncheckedUpdateManyWithoutProp_firmInput = {
 
 export type PropFirmProgramCountOutputType = {
   stages: number
+  supported_platforms: number
   rule_sets: number
   trading_accounts: number
 }
 
 export type PropFirmProgramCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stages?: boolean | PropFirmProgramCountOutputTypeCountStagesArgs
+  supported_platforms?: boolean | PropFirmProgramCountOutputTypeCountSupported_platformsArgs
   rule_sets?: boolean | PropFirmProgramCountOutputTypeCountRule_setsArgs
   trading_accounts?: boolean | PropFirmProgramCountOutputTypeCountTrading_accountsArgs
 }
@@ -947,6 +1062,13 @@ export type PropFirmProgramCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
  */
 export type PropFirmProgramCountOutputTypeCountStagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PropFirmProgramStageWhereInput
+}
+
+/**
+ * PropFirmProgramCountOutputType without action
+ */
+export type PropFirmProgramCountOutputTypeCountSupported_platformsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PropFirmProgramSupportedPlatformWhereInput
 }
 
 /**
@@ -976,6 +1098,7 @@ export type PropFirmProgramSelect<ExtArgs extends runtime.Types.Extensions.Inter
   updated_at?: boolean
   prop_firm?: boolean | Prisma.PropFirmDefaultArgs<ExtArgs>
   stages?: boolean | Prisma.PropFirmProgram$stagesArgs<ExtArgs>
+  supported_platforms?: boolean | Prisma.PropFirmProgram$supported_platformsArgs<ExtArgs>
   rule_sets?: boolean | Prisma.PropFirmProgram$rule_setsArgs<ExtArgs>
   trading_accounts?: boolean | Prisma.PropFirmProgram$trading_accountsArgs<ExtArgs>
   _count?: boolean | Prisma.PropFirmProgramCountOutputTypeDefaultArgs<ExtArgs>
@@ -1023,6 +1146,7 @@ export type PropFirmProgramOmit<ExtArgs extends runtime.Types.Extensions.Interna
 export type PropFirmProgramInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   prop_firm?: boolean | Prisma.PropFirmDefaultArgs<ExtArgs>
   stages?: boolean | Prisma.PropFirmProgram$stagesArgs<ExtArgs>
+  supported_platforms?: boolean | Prisma.PropFirmProgram$supported_platformsArgs<ExtArgs>
   rule_sets?: boolean | Prisma.PropFirmProgram$rule_setsArgs<ExtArgs>
   trading_accounts?: boolean | Prisma.PropFirmProgram$trading_accountsArgs<ExtArgs>
   _count?: boolean | Prisma.PropFirmProgramCountOutputTypeDefaultArgs<ExtArgs>
@@ -1039,6 +1163,7 @@ export type $PropFirmProgramPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     prop_firm: Prisma.$PropFirmPayload<ExtArgs>
     stages: Prisma.$PropFirmProgramStagePayload<ExtArgs>[]
+    supported_platforms: Prisma.$PropFirmProgramSupportedPlatformPayload<ExtArgs>[]
     rule_sets: Prisma.$RuleSetPayload<ExtArgs>[]
     trading_accounts: Prisma.$TradingAccountPayload<ExtArgs>[]
   }
@@ -1448,6 +1573,7 @@ export interface Prisma__PropFirmProgramClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   prop_firm<T extends Prisma.PropFirmDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PropFirmDefaultArgs<ExtArgs>>): Prisma.Prisma__PropFirmClient<runtime.Types.Result.GetResult<Prisma.$PropFirmPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   stages<T extends Prisma.PropFirmProgram$stagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PropFirmProgram$stagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropFirmProgramStagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supported_platforms<T extends Prisma.PropFirmProgram$supported_platformsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PropFirmProgram$supported_platformsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropFirmProgramSupportedPlatformPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rule_sets<T extends Prisma.PropFirmProgram$rule_setsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PropFirmProgram$rule_setsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RuleSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trading_accounts<T extends Prisma.PropFirmProgram$trading_accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PropFirmProgram$trading_accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TradingAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1910,6 +2036,30 @@ export type PropFirmProgram$stagesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PropFirmProgramStageScalarFieldEnum | Prisma.PropFirmProgramStageScalarFieldEnum[]
+}
+
+/**
+ * PropFirmProgram.supported_platforms
+ */
+export type PropFirmProgram$supported_platformsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PropFirmProgramSupportedPlatform
+   */
+  select?: Prisma.PropFirmProgramSupportedPlatformSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PropFirmProgramSupportedPlatform
+   */
+  omit?: Prisma.PropFirmProgramSupportedPlatformOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PropFirmProgramSupportedPlatformInclude<ExtArgs> | null
+  where?: Prisma.PropFirmProgramSupportedPlatformWhereInput
+  orderBy?: Prisma.PropFirmProgramSupportedPlatformOrderByWithRelationInput | Prisma.PropFirmProgramSupportedPlatformOrderByWithRelationInput[]
+  cursor?: Prisma.PropFirmProgramSupportedPlatformWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PropFirmProgramSupportedPlatformScalarFieldEnum | Prisma.PropFirmProgramSupportedPlatformScalarFieldEnum[]
 }
 
 /**

@@ -48,6 +48,11 @@ export type PropFirmProgram = Prisma.PropFirmProgramModel
  */
 export type PropFirmProgramStage = Prisma.PropFirmProgramStageModel
 /**
+ * Model PropFirmProgramSupportedPlatform
+ * 
+ */
+export type PropFirmProgramSupportedPlatform = Prisma.PropFirmProgramSupportedPlatformModel
+/**
  * Model RuleGroup
  * 
  */

@@ -57,6 +57,7 @@ export const ModelName = {
   PropFirm: 'PropFirm',
   PropFirmProgram: 'PropFirmProgram',
   PropFirmProgramStage: 'PropFirmProgramStage',
+  PropFirmProgramSupportedPlatform: 'PropFirmProgramSupportedPlatform',
   RuleGroup: 'RuleGroup',
   RuleSet: 'RuleSet',
   Rule: 'Rule',
@@ -186,6 +187,16 @@ export const PropFirmProgramStageScalarFieldEnum = {
 } as const
 
 export type PropFirmProgramStageScalarFieldEnum = (typeof PropFirmProgramStageScalarFieldEnum)[keyof typeof PropFirmProgramStageScalarFieldEnum]
+
+
+export const PropFirmProgramSupportedPlatformScalarFieldEnum = {
+  prop_firm_program_id: 'prop_firm_program_id',
+  integration_provider_id: 'integration_provider_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type PropFirmProgramSupportedPlatformScalarFieldEnum = (typeof PropFirmProgramSupportedPlatformScalarFieldEnum)[keyof typeof PropFirmProgramSupportedPlatformScalarFieldEnum]
 
 
 export const RuleGroupScalarFieldEnum = {
