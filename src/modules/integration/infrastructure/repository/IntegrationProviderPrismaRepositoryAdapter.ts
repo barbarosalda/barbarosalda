@@ -1,4 +1,4 @@
-import type { IIntegrationProviderRepository } from '@modules/integration/application/port/IIntegrationProviderRepository';
+import type { IIntegrationProviderRepository } from '@src/modules/integration/application/port/repository/IIntegrationProviderRepository';
 import type {
   CreateIntegrationProviderInput,
   IntegrationProvider,
@@ -24,6 +24,12 @@ export class IntegrationProviderPrismaRepositoryAdapter
   async findById(id: string, tx?: ITransactionPort): Promise<IntegrationProvider | null> {
     const client = getPrismaClient(this.database, tx);
     const row = await client.integrationProvider.findUnique({ where: { id } });
+    return row ? toDomainIntegrationProvider(row) : null;
+  }
+
+  async findByCode(code: string, tx?: ITransactionPort): Promise<IntegrationProvider | null> {
+    const client = getPrismaClient(this.database, tx);
+    const row = await client.integrationProvider.findUnique({ where: { code } });
     return row ? toDomainIntegrationProvider(row) : null;
   }
 

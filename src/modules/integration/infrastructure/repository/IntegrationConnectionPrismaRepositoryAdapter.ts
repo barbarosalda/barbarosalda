@@ -1,4 +1,4 @@
-import type { IIntegrationConnectionRepository } from '@modules/integration/application/port/IIntegrationConnectionRepository';
+import type { IIntegrationConnectionRepository } from '@src/modules/integration/application/port/repository/IIntegrationConnectionRepository';
 import type {
   CreateIntegrationConnectionInput,
   IntegrationConnection,
@@ -34,6 +34,19 @@ export class IntegrationConnectionPrismaRepositoryAdapter
     const client = getPrismaClient(this.database, tx);
     const row = await client.integrationConnection.findFirst({
       where: { provider_id: providerId },
+      orderBy: { created_at: 'desc' },
+    });
+    return row ? toDomainIntegrationConnection(row) : null;
+  }
+
+  async findByUserIdAndProviderId(
+    userId: string,
+    providerId: string,
+    tx?: ITransactionPort,
+  ): Promise<IntegrationConnection | null> {
+    const client = getPrismaClient(this.database, tx);
+    const row = await client.integrationConnection.findFirst({
+      where: { user_id: userId, provider_id: providerId },
       orderBy: { created_at: 'desc' },
     });
     return row ? toDomainIntegrationConnection(row) : null;

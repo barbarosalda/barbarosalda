@@ -8,6 +8,11 @@ import type {
 
 export interface IIntegrationConnectionRepository extends IRepositoryPort<IntegrationConnection> {
   findByProviderId(providerId: string, tx?: ITransactionPort): Promise<IntegrationConnection | null>;
+  findByUserIdAndProviderId(
+    userId: string,
+    providerId: string,
+    tx?: ITransactionPort,
+  ): Promise<IntegrationConnection | null>;
   findByUserId(userId: string, tx?: ITransactionPort): Promise<IntegrationConnection | null>;
   create(input: CreateIntegrationConnectionInput, tx?: ITransactionPort): Promise<IntegrationConnection>;
   updateById(id: string, input: UpdateIntegrationConnectionInput, tx?: ITransactionPort): Promise<IntegrationConnection>;
