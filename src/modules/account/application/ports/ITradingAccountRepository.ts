@@ -7,7 +7,7 @@ import type {
 } from '@modules/account/domain/TradingAccount/TradingAccount';
 
 export interface ITradingAccountRepository extends IRepositoryPort<TradingAccount> {
-  findByUserId(userId: string, tx?: ITransactionPort): Promise<TradingAccount | null>;
+  findByUserId(userId: string, tx?: ITransactionPort): Promise<TradingAccount[]>;
   create(input: CreateTradingAccountInput, tx?: ITransactionPort): Promise<TradingAccount>;
   updateById(id: string, input: UpdateTradingAccountInput, tx?: ITransactionPort): Promise<TradingAccount>;
 }

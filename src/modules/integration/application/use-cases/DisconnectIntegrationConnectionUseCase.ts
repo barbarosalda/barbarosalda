@@ -14,6 +14,7 @@ import {
 } from '@src/modules/integration/application/contracts/DisconnectIntegrationConnectionContract';
 import { enqueuePlatformIntegrationEvents } from '@modules/integration/application/services/platformIntegrationEventMapper';
 import { publishPlatformIntegrationEvents } from '@modules/integration/application/services/publishPlatformIntegrationEvents';
+import { ForbiddenError, NotFoundError } from '@shared/presentation/http/errors/HttpError';
 
 /**
  * Use case for disconnecting an integration connection.
@@ -56,14 +57,18 @@ export class DisconnectIntegrationConnectionUseCase {
           tx,
         );
 
-        if (!connection || connection.user_id !== userId) {
-          throw new Error(`Integration connection not found: ${parsed.connectionId}`);
+        if (!connection) {
+          throw new NotFoundError(`Integration connection not found: ${parsed.connectionId}`);
+        }
+
+        if (connection.user_id !== userId) {
+          throw new ForbiddenError('Integration connection does not belong to the authenticated user.');
         }
 
         const provider = await this.integrationProviderRepository.findById(connection.provider_id, tx);
 
         if (!provider) {
-          throw new Error(`Integration provider not found: ${connection.provider_id}`);
+          throw new NotFoundError(`Integration provider not found: ${connection.provider_id}`);
         }
 
         const platformIntegration = this.platformIntegrationRegistry.get(provider.adapter_key);

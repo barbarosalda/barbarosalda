@@ -351,6 +351,7 @@ model IntegrationConnection {
 
   provider IntegrationProvider @relation(fields: [provider_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
+  @@unique([user_id, provider_id], map: "integration_connections_user_provider_key")
   @@index([user_id])
   @@index([provider_id])
   @@index([status])

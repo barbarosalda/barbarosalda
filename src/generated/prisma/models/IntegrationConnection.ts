@@ -264,6 +264,7 @@ export type IntegrationConnectionOrderByWithRelationInput = {
 
 export type IntegrationConnectionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  user_id_provider_id?: Prisma.IntegrationConnectionUser_idProvider_idCompoundUniqueInput
   AND?: Prisma.IntegrationConnectionWhereInput | Prisma.IntegrationConnectionWhereInput[]
   OR?: Prisma.IntegrationConnectionWhereInput[]
   NOT?: Prisma.IntegrationConnectionWhereInput | Prisma.IntegrationConnectionWhereInput[]
@@ -280,7 +281,7 @@ export type IntegrationConnectionWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"IntegrationConnection"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"IntegrationConnection"> | Date | string
   provider?: Prisma.XOR<Prisma.IntegrationProviderScalarRelationFilter, Prisma.IntegrationProviderWhereInput>
-}, "id">
+}, "id" | "user_id_provider_id">
 
 export type IntegrationConnectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -439,6 +440,11 @@ export type IntegrationConnectionListRelationFilter = {
 
 export type IntegrationConnectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type IntegrationConnectionUser_idProvider_idCompoundUniqueInput = {
+  user_id: string
+  provider_id: string
 }
 
 export type IntegrationConnectionCountOrderByAggregateInput = {

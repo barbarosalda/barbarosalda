@@ -1,9 +1,11 @@
 import { z } from 'zod';
 
+import { VerifiedAuthIdentitySchema } from '@shared/domain/Auth/schemas/VerifiedAuthIdentity';
 import { JsonValueSchema } from '@shared/kernel/json/JsonValue';
 import { PlatformIntegrationEventSchema } from '@modules/integration/domain/events/PlatformIntegrationEvent';
 
 export const ReceivePlatformIntegrationEventCommand = z.object({
+  identity: VerifiedAuthIdentitySchema,
   connectionId: z.string().min(1),
   eventType: z.string().min(1),
   payloadJson: JsonValueSchema,

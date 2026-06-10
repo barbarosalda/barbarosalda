@@ -2,6 +2,7 @@ import type { RequestHandler } from 'express';
 
 import { ReceivePlatformIntegrationEventCommand } from '@src/modules/integration/application/contracts/ReceivePlatformIntegrationEventContract';
 import type { ReceivePlatformIntegrationEventUseCase } from '@modules/integration/application/use-cases/ReceivePlatformIntegrationEventUseCase';
+import { getAuthenticatedUser } from '@shared/presentation/http/middleware/getAuthenticatedUser';
 
 /**
  * Handler for receiving a platform integration event.
@@ -18,7 +19,10 @@ export function receivePlatformIntegrationEventHttpHandler(deps: {
    * @returns The result.
    */
   return async (request, response) => {
+    const identity = getAuthenticatedUser(request);
+
     const command = ReceivePlatformIntegrationEventCommand.parse({
+      identity,
       connectionId: request.params.connectionId,
       eventType: request.body.eventType,
       payloadJson: request.body.payloadJson,

@@ -39,7 +39,6 @@ function mergeMetadata(
  */
 export class CTraderPlatformIntegration implements IPlatformIntegration {
   readonly adapterKey = 'ctrader';
-  isPlatformConnected = false;
 
   /**
    * Provider definition.
@@ -69,16 +68,6 @@ export class CTraderPlatformIntegration implements IPlatformIntegration {
 
     // TODO: Implement the cTrader platform connection workflow.
     // https://docs.ctrader.com/integration-guide/api-integration/authentication-oauth
-
-    if(this.isPlatformConnected) {
-      throw new Error('cTrader platform is already connected.');
-    }
-    this.isPlatformConnected = true;
-
-
-
-
-
 
     const event = createPlatformIntegrationEvent({
       type: PlatformIntegrationEventType.CONNECTION_STARTED,

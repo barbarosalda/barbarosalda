@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { TradingAccountSchema } from '../../domain/TradingAccount/TradingAccount.ts';
 import { VerifiedAuthIdentitySchema } from '@src/shared/domain/Auth/schemas/VerifiedAuthIdentity';
-import { JsonValueSchema } from '@src/shared/kernel/json/JsonValue';
 
 
 /**

@@ -20,6 +20,12 @@ export class NotFoundError extends HttpError {
   }
 }
 
+export class ForbiddenError extends HttpError {
+  constructor(message = 'Forbidden') {
+    super(403, message);
+  }
+}
+
 export class InternalServerError extends HttpError {
   constructor(message = 'Internal server error') {
     super(500, message);

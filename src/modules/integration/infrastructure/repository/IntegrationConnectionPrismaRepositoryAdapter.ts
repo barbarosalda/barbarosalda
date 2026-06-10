@@ -45,9 +45,13 @@ export class IntegrationConnectionPrismaRepositoryAdapter
     tx?: ITransactionPort,
   ): Promise<IntegrationConnection | null> {
     const client = getPrismaClient(this.database, tx);
-    const row = await client.integrationConnection.findFirst({
-      where: { user_id: userId, provider_id: providerId },
-      orderBy: { created_at: 'desc' },
+    const row = await client.integrationConnection.findUnique({
+      where: {
+        user_id_provider_id: {
+          user_id: userId,
+          provider_id: providerId,
+        },
+      },
     });
     return row ? toDomainIntegrationConnection(row) : null;
   }

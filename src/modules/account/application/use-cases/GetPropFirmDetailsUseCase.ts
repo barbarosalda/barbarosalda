@@ -1,5 +1,6 @@
-import { GetPropFirmDetailsCommand, GetPropFirmDetailsResult, GetPropFirmsResult } from '@src/modules/account/application/contracts/PropFirmContracts';
+import { GetPropFirmDetailsCommand, GetPropFirmDetailsResult } from '@src/modules/account/application/contracts/PropFirmContracts';
 import { IPropFirmRepository } from '@src/modules/account/application/ports/IPropFirmRepository';
+import { NotFoundError } from '@src/shared/presentation/http/errors/HttpError';
 
 /**
  * Use case for getting prop firm details.
@@ -21,6 +22,10 @@ export class GetPropFirmDetailsUseCase {
         const propFirmId = parsed.propFirmId;
 
         const propFirm = await this.propFirmRepository.getById(propFirmId);
+
+        if (!propFirm) {
+            throw new NotFoundError(`Prop firm not found: ${propFirmId}`);
+        }
 
         return GetPropFirmDetailsResult.parse({
             propFirm,

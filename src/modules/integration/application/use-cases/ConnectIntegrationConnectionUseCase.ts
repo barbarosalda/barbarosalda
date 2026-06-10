@@ -15,6 +15,7 @@ import {
 } from '@src/modules/integration/application/contracts/ConnectIntegrationConnectionContract';
 import { enqueuePlatformIntegrationEvents } from '@modules/integration/application/services/platformIntegrationEventMapper';
 import { publishPlatformIntegrationEvents } from '@modules/integration/application/services/publishPlatformIntegrationEvents';
+import { NotFoundError } from '@shared/presentation/http/errors/HttpError';
 
 /**
  * Use case for connecting an integration connection.
@@ -58,7 +59,7 @@ export class ConnectIntegrationConnectionUseCase {
         );
 
         if (!provider) {
-          throw new Error(`Integration provider not found: ${parsed.providerId}`);
+          throw new NotFoundError(`Integration provider not found: ${parsed.providerId}`);
         }
 
         const platformIntegration = this.platformIntegrationRegistry.get(provider.adapter_key);

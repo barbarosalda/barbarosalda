@@ -39,18 +39,18 @@ export class TradingAccountPrismaRepositoryAdapter implements ITradingAccountRep
   }
 
   /**
-   * Finds a trading account by its user ID.
+   * Finds trading accounts by their user ID.
    * @param userId - The ID of the user.
    * @param tx - The transaction to use.
-   * @returns The trading account.
+   * @returns The trading accounts.
    */
-  async findByUserId(userId: string, tx?: ITransactionPort): Promise<TradingAccount | null> {
+  async findByUserId(userId: string, tx?: ITransactionPort): Promise<TradingAccount[]> {
     const client = getPrismaClient(this.database, tx);
-    const row = await client.tradingAccount.findFirst({
+    const rows = await client.tradingAccount.findMany({
       where: { user_id: userId },
       orderBy: { created_at: 'desc' },
     });
-    return row ? toDomainTradingAccount(row) : null;
+    return rows.map(toDomainTradingAccount);
   }
 
   /**

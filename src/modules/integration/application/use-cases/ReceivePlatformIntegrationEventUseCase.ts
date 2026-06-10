@@ -9,6 +9,7 @@ import {
 } from '@src/modules/integration/application/contracts/ReceivePlatformIntegrationEventContract';
 import { enqueuePlatformIntegrationEvents } from '@modules/integration/application/services/platformIntegrationEventMapper';
 import { publishPlatformIntegrationEvents } from '@modules/integration/application/services/publishPlatformIntegrationEvents';
+import { ForbiddenError, NotFoundError } from '@shared/presentation/http/errors/HttpError';
 
 /**
  * Use case for receiving a platform integration event.
@@ -33,13 +34,14 @@ export class ReceivePlatformIntegrationEventUseCase {
     command: ReceivePlatformIntegrationEventCommand,
   ): Promise<ReceivePlatformIntegrationEventResult> {
     const parsed = ReceivePlatformIntegrationEventCommand.parse(command);
+    const userId = parsed.identity.userId;
 
     const result = await this.unitOfWork.execute(
       {
-        actor: { type: 'PROVIDER', id: null },
+        actor: { type: 'USER', id: userId },
         correlationId: parsed.correlationId,
         requestId: parsed.requestId,
-        source: 'PROVIDER_WEBHOOK',
+        source: 'HTTP_API',
         metadataJson: {
           connectionId: parsed.connectionId,
           eventType: parsed.eventType,
@@ -52,13 +54,17 @@ export class ReceivePlatformIntegrationEventUseCase {
         );
 
         if (!connection) {
-          throw new Error(`Integration connection not found: ${parsed.connectionId}`);
+          throw new NotFoundError(`Integration connection not found: ${parsed.connectionId}`);
+        }
+
+        if (connection.user_id !== userId) {
+          throw new ForbiddenError('Integration connection does not belong to the authenticated user.');
         }
 
         const provider = await this.integrationProviderRepository.findById(connection.provider_id, tx);
 
         if (!provider) {
-          throw new Error(`Integration provider not found: ${connection.provider_id}`);
+          throw new NotFoundError(`Integration provider not found: ${connection.provider_id}`);
         }
 
         const platformIntegration = this.platformIntegrationRegistry.get(provider.adapter_key);
