@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 import { AuditSnapshotSchema } from '@src/shared/domain/Audit/AuditSnapshot';
 import { RecordStatus } from '@src/shared/domain/Record/RecordStatus';
-import { IntegrationAuthType } from '@src/shared/domain/IntegrationProvider/enums/IntegrationAuthType';
-import { IntegrationConnectionMode } from '@src/shared/domain/IntegrationProvider/enums/IntegrationConnectionMode';
-import { IntegrationProviderType } from '@src/shared/domain/IntegrationProvider/enums/IntegrationProviderType';
+import { IntegrationAuthType } from '@src/modules/integration/domain/IntegrationProvider/enums/IntegrationAuthType';
+import { IntegrationConnectionMode } from '@src/modules/integration/domain/IntegrationProvider/enums/IntegrationConnectionMode';
+import { IntegrationProviderType } from '@src/modules/integration/domain/IntegrationProvider/enums/IntegrationProviderType';
 
 
 export const IntegrationProviderSchema = z.object({

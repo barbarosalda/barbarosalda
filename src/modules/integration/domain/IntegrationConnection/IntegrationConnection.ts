@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { AuditSnapshotSchema } from '@src/shared/domain/Audit/AuditSnapshot';
 import { JsonValueSchema } from '@src/shared/kernel/json/JsonValue';
-import { IntegrationConnectionStatus } from '@src/shared/domain/IntegrationConnection/IntegrationConnectionStatus';
+import { IntegrationConnectionStatus } from '@src/modules/integration/domain/IntegrationConnection/IntegrationConnectionStatus';
 
 
 export const IntegrationConnectionSchema = z.object({

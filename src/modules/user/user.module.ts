@@ -1,6 +1,6 @@
 import type { IModulePort, ModuleSetupContext } from '@shared/application/ports/module/IModulePort';
 import type { ModuleRoute } from '@shared/presentation/http/routes';
-import { PrismaUserPreferenceRepositoryAdapter } from '@modules/user/infrastructure/persistence/prisma/repository/PrismaUserPreferenceRepositoryAdapter';
+import { PrismaUserPreferenceRepositoryAdapter } from '@src/modules/user/infrastructure/persistence/prisma/repository/UserPreferencePrismaRepositoryAdapter';
 import { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
 import { UpdateAuthenticatedUserPreferencesUseCase } from '@modules/user/application/use-cases/UpdateAuthenticatedUserPreferencesUseCase';
 import { createUserModuleRoutes } from '@modules/user/presentation/http/routes';

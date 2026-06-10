@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { AuditSnapshotSchema } from '@src/shared/domain/Audit/AuditSnapshot';
 import { RecordStatus } from '@src/shared/domain/Record/RecordStatus';
 import { PropFirmType } from '@src/modules/account/domain/PropFirm/PropFirmType';
+import { PropFirmProgramSchema } from '@src/modules/account/domain/PropFirmProgram/PropFirmProgram';
+import { PropFirmProgramStageSchema } from '@src/modules/account/domain/PropFirmProgramStage/PropFirmProgramStage';
 
 
 export const PropFirmSchema = z.object({
@@ -17,6 +19,18 @@ export const PropFirmSchema = z.object({
 });
 
 export type PropFirm = z.infer<typeof PropFirmSchema>;
+
+export const PropFirmProgramWithStagesSchema = PropFirmProgramSchema.extend({
+    stages: z.array(PropFirmProgramStageSchema),
+});
+
+export type PropFirmProgramWithStages = z.infer<typeof PropFirmProgramWithStagesSchema>;
+
+export const PropFirmWithProgramsAndStagesSchema = PropFirmSchema.extend({
+    programs: z.array(PropFirmProgramWithStagesSchema),
+});
+
+export type PropFirmWithProgramsAndStages = z.infer<typeof PropFirmWithProgramsAndStagesSchema>;
 
 export const CreatePropFirmSchema = z.object({
     name: z.string().min(1),

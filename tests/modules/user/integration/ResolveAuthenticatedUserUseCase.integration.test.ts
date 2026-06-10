@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import { ResolveAuthenticatedUserUseCase } from '@modules/user/application/use-cases/ResolveAuthenticatedUserUseCase';
-import { PrismaUserPreferenceRepositoryAdapter } from '@modules/user/infrastructure/persistence/prisma/repository/PrismaUserPreferenceRepositoryAdapter';
+import { PrismaUserPreferenceRepositoryAdapter } from '@modules/user/infrastructure/persistence/prisma/repository/UserPreferencePrismaRepositoryAdapter';
 import { PrismaDatabaseAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaDatabaseAdapter';
 import { PrismaUnitOfWorkAdapter } from '@shared/infrastructure/database/prisma/adapters/PrismaUnitOfWorkAdapter';
 import { devCognitoAccessTokenClaims } from '@shared/infrastructure/auth/dev/dev-auth.identity';
