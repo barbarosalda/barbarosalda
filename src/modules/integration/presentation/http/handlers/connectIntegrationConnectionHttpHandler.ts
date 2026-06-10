@@ -23,7 +23,7 @@ export function connectIntegrationConnectionHttpHandler(deps: {
 
     const command = ConnectIntegrationConnectionCommand.parse({
       identity,
-      providerCode: request.body.providerCode,
+      providerId: request.body.providerId,
       payloadJson: request.body.payloadJson,
       correlationId: request.context.correlationId,
       requestId: request.context.requestId,

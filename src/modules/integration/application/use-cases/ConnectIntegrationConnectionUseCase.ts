@@ -48,17 +48,17 @@ export class ConnectIntegrationConnectionUseCase {
         requestId: parsed.requestId,
         source: 'HTTP_API',
         metadataJson: {
-          providerCode: parsed.providerCode,
+          providerId: parsed.providerId,
         },
       },
       async (tx) => {
-        const provider = await this.integrationProviderRepository.findByCode(
-          parsed.providerCode,
+        const provider = await this.integrationProviderRepository.findById(
+          parsed.providerId,
           tx,
         );
 
         if (!provider) {
-          throw new Error(`Integration provider not found: ${parsed.providerCode}`);
+          throw new Error(`Integration provider not found: ${parsed.providerId}`);
         }
 
         const platformIntegration = this.platformIntegrationRegistry.get(provider.adapter_key);

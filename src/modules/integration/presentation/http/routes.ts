@@ -24,7 +24,6 @@ export function createIntegrationModuleRoutes(deps: {
 }): ModuleRoute[] {
   const protectedRouter = Router();
 
-  // Should be moved to account module.
   protectedRouter.get(
     '/providers',
     asyncHandler(listIntegrationProvidersHttpHandler(deps)),

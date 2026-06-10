@@ -7,7 +7,7 @@ import { PlatformIntegrationEventSchema } from '@modules/integration/domain/even
 
 export const ConnectIntegrationConnectionCommand = z.object({
   identity: VerifiedAuthIdentitySchema,
-  providerCode: z.string().min(1),
+  providerId: z.string().min(1),
   payloadJson: JsonValueSchema.optional(),
   correlationId: z.string().min(1),
   requestId: z.string().min(1).optional(),
